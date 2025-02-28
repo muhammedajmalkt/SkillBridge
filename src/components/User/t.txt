@@ -1,0 +1,250 @@
+<form>
+                 <h1 className='font-semibold mt-6 text-gray-700 '>Skill Offered</h1>
+                 
+                    <input className='border border-gray-600  px-4 h-9 rounded-md'
+                    type='text' placeholder='Title' />
+                    <label className='text-xs mb-5'>Add a Title like, "Photoshop Skills For:Illustrator,After Effects, or Cinema 4D" or "Learn UI/UX Design."</label>
+                 
+                    <select className='border border-gray-600  px-4 h-9 mb-5 text-center rounded-md '>
+                        <option value={""}>-----SELECT CATEGORY-----</option>
+                        <option value={"art/creativity"}>ART/CREATIVITY</option>
+                        <option value={"cooking"}>COOKING</option>
+                        <option value={"computer/it"}>COMPUTER/IT</option>
+                        <option value={"outdoor/sports"}>OUTDOOR/SPORTS</option>
+                        <option value={"languages"}>LANGUAGES</option>
+                        <option value={"consulting"}>CONSULTING</option>
+                        <option value={"beauty/health"}>BEAUTY/HEALTH</option>
+                        <option value={"care/sitting"}>CARE/SITTING</option>
+                        <option value={"do it yourselfes"}>DO IT YOUSELFES</option>
+                        <option value={"education"}>EDUCATION</option>
+                        <option value={"music"}>MUSIC</option>
+                        <option value={"others"}>OTHERS</option>
+                    </select>
+                    <div>
+                        <label>Expirence : </label>
+                        {["Beginner", "Intermediate", "Expert"].map((level)=>(
+                            <>
+                           <input
+                           className='mb-6 text-center ml-2 mr-1'
+                           type="radio"
+                           name="skillLevel"
+                           placeholder='hjghj'
+                           value={level}/>
+
+                           <label>{level}</label>
+                           </>
+                        ))}
+                    </div>
+                        
+ 
+                     <textarea className='border border-gray-600  px-4 h-14 mb-5 pt-2 rounded-md'  placeholder='Detaile information' />
+
+                      <input className='  '
+                      type='file' placeholder='Image '/>
+                      <label className='text-xs mb-3'>Choose an image for  your skill  </label>
+                      
+
+                {/* {wanted/////////////////} */}
+                <hr/>
+                 <h1 className='font-semibold mt-6 text-gray-700 '>Skill Needed</h1>
+                 
+                 <input className='border border-gray-600  px-4 h-9 rounded-md '
+                 type='text' placeholder='Title' />
+                 <label className='text-xs mb-5'>Add a Title like, "Photoshop Skills For:Illustrator,After Effects, or Cinema 4D" or "Learn UI/UX Design."</label>
+              
+                 <select className='border border-gray-600  px-4 h-9 mb-5 text-center rounded-md '>
+                     <option value={""}>-----SELECT CATEGORY-----</option>
+                     <option value={"art/creativity"}>ART/CREATIVITY</option>
+                     <option value={"cooking"}>COOKING</option>
+                     <option value={"computer/it"}>COMPUTER/IT</option>
+                     <option value={"outdoor/sports"}>OUTDOOR/SPORTS</option>
+                     <option value={"languages"}>LANGUAGES</option>
+                     <option value={"consulting"}>CONSULTING</option>
+                     <option value={"beauty/health"}>BEAUTY/HEALTH</option>
+                     <option value={"care/sitting"}>CARE/SITTING</option>
+                     <option value={"do it yourselfes"}>DO IT YOUSELFES</option>
+                     <option value={"education"}>EDUCATION</option>
+                     <option value={"music"}>MUSIC</option>
+                     <option value={"others"}>OTHERS</option>
+                 </select>
+
+                  <div>
+                      <lable>Priority : </lable>
+                        {["Low", "Medium", "High"].map((level)=>(
+                            <>
+                           <input
+                           className='mb-6 text-center ml-2 mr-1'
+                           type="radio"
+                           name="skillLevel"
+                           placeholder='hjghj'
+                           value={level}/>
+                           <label>{level}</label>
+                           </>
+                        ))}
+                    </div>
+
+                     <textarea className='border border-gray-600  px-4 h-14 mb-5 pt-2 rounded-md'  placeholder='Detaile information' />
+
+                 {/* {wanted///////////////} */}
+                   <button className=' bg-[#6d28d2]  text-white font-md px-5 py-1 text-lg w-fit ml-[500px] rounded-md'>Next→</button>
+                 
+            </div>
+             </form>
+
+
+
+
+
+
+
+
+             import React, { useState } from 'react';
+import Nav from '../Navbar/Nav';
+
+const Profile = () => {
+  const [addSwap, setAddSwap] = useState(false);
+
+  const handleAddSwap = () => {
+    setAddSwap(true);
+  };
+
+  return (
+    <div>
+      <Nav />
+      <div className='mt-[72px] flex flex-row justify-center max-w-[1862px] min-h-screen p-6'>
+        {/* Left Sidebar */}
+        <div className='flex flex-col border-l border-y border-gray-600 w-[215px] items-center text-center'>
+          <img className='w-[120px] h-[120px] mt-8 rounded-full border-2 border-[#6d28d2]' src="dp.png" alt="Profile" />
+          <h3 className='font-medium pt-2'>Ablaaaash</h3>
+          <h6 className='text-xs'>Web Developer | Designer</h6>
+          <h6 className='text-xs'>www//local github///</h6>
+          <button className='text-xs border bg-[#6d28d2] text-white px-2 py-[2px] mt-4 rounded-3xl'>Edit Profile</button>
+
+          <div className='mt-10 text-sm'>
+            <h6 className='mb-2 cursor-pointer' onClick={handleAddSwap}>Add a Swap</h6>
+            <h6 className='cursor-pointer'>Edit Swap</h6>
+          </div>
+        </div>
+
+        {/* Profile Form Section */}
+        <div className='border border-gray-600 flex-grow p-10'>
+          <div className='border-b border-gray-600 h-[92px] py-4 text-center'>
+            <h1 className='text-xl font-semibold'>Public Profile</h1>
+            <h3 className='text-sm'>Add information about yourself</h3>
+          </div>
+
+          {/* Profile Form */}
+          <form className='flex flex-col justify-center mx-32 gap-3 text-sm text-gray-600'>
+            <h1 className='font-semibold text-gray-700'>Basics</h1>
+
+            {/* Name Input (Disabled) */}
+            <input 
+              className='border border-gray-600 px-4 h-9 rounded-md bg-gray-100' 
+              type='text' 
+              value="Ablaaash" 
+              disabled 
+            />
+
+            {/* Headline Input */}
+            <input className='border border-gray-600 px-4 h-9 rounded-md' type='text' placeholder='Headline' />
+            <label className='text-xs'>Add a professional headline like, "Instructor at ABC" or "Web Developer."</label>
+
+            {/* Social Link Input */}
+            <input className='border border-gray-600 px-4 h-9 rounded-md' type='url' placeholder='GitHub / LinkedIn URL' />
+            <label className='text-xs'>Add Your Social Links like GitHub, LinkedIn.</label>
+
+            {/* Image Upload */}
+            <input className='border border-gray-600 px-4 py-2 rounded-md' type='file' />
+            <label className='text-xs mb-3'>Choose an image for your profile.</label>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Profile;
+
+
+
+swp////////////
+ <>
+    {skills?.data?.length > 0 ? (
+    <div className='mt-[72px] text-center pt-10 '>
+        <form  className='h-8'>
+        <input type='text' placeholder='Search'
+        className='border border-[#6d28d2] h-8 px-4 w-[600px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#6d28d2] bg-slate-50'
+        />
+        <button  type='submit' className='bg-[#6d28d2] text-white border border-[#6d28d2] text-md h-8  px-3 hover:bg-[#892de1] rounded-md ml-1'>Search Skill</button>
+        </form>
+    </div>
+
+       {/* Card Section */}
+        <div className="flex justify-center mt-20 mb-28">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                {/* Card  */}
+                {/* {Array(12).fill("").map((_, index) => ( */}
+                    {skills?.data.map((item,index)=>( 
+                    <div
+                        onClick={()=>productClick(item._id)}
+                        key={index}
+                        className="group flex flex-col h-[380px] w-[280px] shadow-xl rounded-md overflow-hidden bg-white transition-transform duration-300 hover:scale-105 "
+                      >
+                        <img
+                            className="h-[160px] object-cover w-full transition-transform duration-300 ease-in-out group-hover:scale-110"
+                            src={item.offeredImage}
+                            alt="Skill Image"
+                        />
+                        <div className="p-4">
+                            <h1 className="text-md hover:text-[#6d28d2]">{item.offeredTitle}</h1>
+                            <h1 className="bg-[#F8F8F9] text-sm text-gray-500 mt-4 py-1 text-center">{item.offeredCategory?.toUpperCase()}</h1>
+                            <button className="border border-[#6d28d2] w-full text-[#6d28d2] hover:text-white hover:bg-[#6d28d2] mt-8 text-xs px-10 py-2 rounded-3xl">
+                                REQUEST A SWAP
+                            </button>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>):(
+                    <p className="text-center w-full">No item found!</p>
+
+        )}
+
+    </>   
+
+
+
+    ///////Search
+    {/* <div className="mt-[72px] text-center pt-10 flex justify-center relative -z-10">
+    <span className='mr-4  text-[#6d28d2] text- cursor-pointer flex items-center gap-2 bg-[#6c28d221] px-2  rounded-2xl transition duration-300" ' onClick={()=>setCategoryDrp(!categoryDrp)}><IoFilterSharp/>Filter</span>
+          
+           {categoryDrp && 
+           <div className='absolute top-[40px] left-[365px] -translate-x-1/2 bg-white shadow-lg 
+                     rounded-lg p-3 w-60 border  z-50 transition-all
+                     animate-fadeIn flex flex-col  cursor-pointer ' >
+           
+                      {[  "art/creativity",
+                          "cooking",
+                          "computer/it",
+                          "outdoor/sports",
+                          "languages",
+                          "consulting",
+                          "beauty/health",
+                          "care/sitting",
+                          "do it yourselfes",
+                          "education",
+                          "music",
+                          "others",
+                      ].map((item)=>(
+                          <h4 className='border-b text-sm hover:bg-slate-100  '>{item.toUpperCase() }</h4>
+                          
+                        ))}
+                            </div>}
+        <form >
+        <input type='text' placeholder='Search'
+        className='border border-[#6d28d2] h-8 px-4 w-[600px]   rounded-tl-2xl rounded-bl-2xl focus:outline-none focus:ring-1 focus:ring-[#6d28d2] bg-slate-50'
+        />
+            <button  type='submit' className='bg-[#6d28d2] text-white border-2 border-[#6d28d2] text-md py-[6px]  rounded-tr-2xl rounded-br-2xl px-3 hover:bg-[#892de1]  absolute r-0'><IoSearchOutline/> </button>    
+        </form>
+      </div> */}
