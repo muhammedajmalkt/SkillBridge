@@ -62,7 +62,7 @@ const Signup = ({setShowLogin,setShowSignup}) => {
 
   return (
     <>
-   {show &&  <div className="h-screen w-screen bg-gray-800 fixed bg-opacity-20 backdrop-blur-sm flex justify-center items-center " onClick={handleClose}>
+   {show &&  <div className="h-screen w-screen bg-gray-800 fixed bg-opacity-20 backdrop-blur-sm flex justify-center items-center z-50" onClick={handleClose}>
     <div className='absolute top-0 right-0 text-2xl bg-[#6c28d2aa] text-white hover:text-[#6d28d2] hover:bg-white cursor-pointer ' onClick={handleClose}><IoClose/></div>
       <div className="bg-white p-8 rounded-lg shadow-lg w-4/5 sm:w-3/5 md:w-1/2 lg:w-1/2 h flex flex-col items-center mb-24" onClick={(e)=>e.stopPropagation()}>
         <div className="flex justify-between w-full mb-6">

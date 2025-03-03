@@ -35,12 +35,13 @@ const Notification = () => {
       setNotification(data.data)
       return data.data
     },
+    enabled :!! user?._id
   })
   // console.log(data);
    
   return (
     <div className=' h-screen '>
-      <h1 className='text-2xl border-b-2 pt-5 pb-4 pl-10 font-medium'>Notifications</h1>
+      <h1 className='text-2xl border-b-2 pt-5 pb-4 pl-10 font-medium mt-9'>Notifications</h1>
       
       {notification.map((item)=>(
         <div className='p-5 border-b '>

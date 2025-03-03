@@ -3,7 +3,7 @@ import { data, Link, NavLink, useNavigate } from 'react-router-dom'
 import Signup from '../Registraion/Signup'
 import Login from '../Registraion/Login'
 import { useDispatch, useSelector } from 'react-redux'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { loginSuccess, logoutSuccess } from '../../../Redux/Feature/authSlice'
 import axiosInstance from '../../../api/axiosInstance'
 import toast  from 'react-hot-toast'
@@ -20,6 +20,7 @@ const Nav = () => {
   // console.log(user);
   const dispatch = useDispatch()
   const naviagte = useNavigate()
+  const queryClient = useQueryClient()
 
 
  const handleMouseLeave =()=>{
@@ -50,7 +51,7 @@ const Nav = () => {
   // console.log(user,"=====");
  
   
-  const { mutate: logout } = useLogout();
+  const { mutate: logout, } = useLogout();
   const handleLogout = () => {
     logout(null, {
       onSuccess: (data) => { 
@@ -65,6 +66,7 @@ const Nav = () => {
           draggable: true,
         });
         naviagte("/")
+        queryClient.clear()
       },
       onError:(err) => {
         console.log(err.response?.data);
@@ -89,7 +91,7 @@ const Nav = () => {
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           {/* Logo */}
           <a href="/" className="text-2xl font-bold text-[#181818]">
-            Ski<span className='text-[#6d28d2] font-bold animate-pulse'>⇅</span>Bridge</a>
+            Ski<span className='text-[#6d28d2] font-bold animate-pulse '>⇅</span>Bridge</a>
 
           <div className="hidden md:flex space-x-6 text-sm">
             <Link to="/" className="text-gray-600 hover:text-[#6d28d2] ">Home</Link>

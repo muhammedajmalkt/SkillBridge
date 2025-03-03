@@ -68,8 +68,6 @@ const {data:skills,isLoading,error,} = useQuery({
                     "languages",
                     "consulting",
                     "beauty/health",
-                    "care/sitting",
-                    "do it yourself",
                     "education",
                     "music",
                     "others",

@@ -79,10 +79,10 @@ const AllSkills = () => {
              <h3 className='text-sm'>Swap Added to Your Profile!</h3>
             </div>
             
-            {skill?.map((skill)=>(
+            {skill.length ? skill?.map((skill)=>(
 
                 <div className='flex border p-3 m-4 gap-8 rounded ' >
-                   <img src={skill?.offeredImage} alt='pic' className='w-28 rounded bg-slate-500 cursor-pointer object-cover' onClick={()=>handleClick(skill._id)}/> 
+                   <img src={skill?.offeredImage ||'sample.png'} alt='pic' className='w-32 h-24 rounded bg-slate-500 cursor-pointer object-cover' onClick={()=>handleClick(skill._id)}/> 
                  <div>
                   <div className='flex justify-between '>
                      <h1 className='font-semibold h-12 overflow-hidden cursor-pointer' onClick={()=>handleClick(skill._id)}>{skill?.offeredTitle}</h1>
@@ -98,7 +98,7 @@ const AllSkills = () => {
                 </div>
 
             </div>
-                ))}
+                )):<div className='flex justify-center '><h1>No item found</h1></div>}
              
              
 

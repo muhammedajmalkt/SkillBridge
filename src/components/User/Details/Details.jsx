@@ -53,7 +53,7 @@ const handleRequest = (details) =>{
 if(isLoading) return <div className='mt-[72px] h-screen flex justify-center items-center '><Loader /></div>
 
   return (
-    <div className='h-auto mt-[72px]'>
+    <div className='h-auto mt-[2px]'>
             
             <div className='bg-slate-100 h-64 '>
             <h1 className='w-full p-32 text-2xl font-bold text-[#181818]'>{details.offeredTitle}</h1>

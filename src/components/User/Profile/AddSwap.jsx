@@ -48,7 +48,6 @@ const AddSwap = () => {
        createSwap(formData, {
           onSuccess: (data) => {  
             console.log(data);
-            
                toast.success(data?.message, {
                     position: "top-right",
                     autoClose: 3000,
@@ -127,8 +126,6 @@ const AddSwap = () => {
             "languages",
             "consulting",
             "beauty/health",
-            "care/sitting",
-            "do it yourself",
             "education",
             "music",
             "others",

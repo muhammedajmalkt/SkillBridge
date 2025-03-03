@@ -6,6 +6,7 @@ import axiosInstance from '../../../api/axiosInstance'
 import Loader from '../Layout/Loader'
 import { useCreateTransaction } from '../../../hooks/useSwap'
 import toast from 'react-hot-toast'
+import { NavLink } from 'react-router-dom'
 
 const SwapWith = ({receiverSkill,setRequest}) => {
     const { isAuthenticated } = useSelector((state) => state.auth)
@@ -74,18 +75,18 @@ const SwapWith = ({receiverSkill,setRequest}) => {
          <div className="flex flex-col items-center text-center space-y-2 h-[400px] overflow-scroll px-9  " >
                <h1 className="text-2xl fixed w-1/3 font-bold text-gray-900   bg-white text-center shadow-sm pb-1 z-20 ">Swap with</h1>
 
-        {skill?.map((skill)=>(
-            <div className='relative top-10'>
+        {skill.length > 0 ? skill?.map((skill)=>(
+          <div className='relative top-10'>
        <div className={`flex gap-5 shadow  p-2 rounded focus:bg-[#6c28d26b] cursor-default ${requestBtn === skill._id ? "bg-[#6c28d247]":" hover:bg-slate-100 "} `} onClick={()=>handleSelect(skill)} >
-        <img src={skill?.offeredImage} alt="image" className='w-20 object-cover' />  
+        <img src={skill?.offeredImage || "sample.png"} alt="image" className='w-20 h-16 bg-gray-500 object-cover' />  
         <div className='text-start '>
            <h1 className="text-sm text-gray-700 line-clamp-2 ">{skill?.offeredTitle}</h1>
            <h1 className='text-xs mt-1 text-gray-500'>{skill?.offeredCategory.toUpperCase() }</h1>
         </div>  
         </div>
         </div>
-
-        )) }
+              
+        )):<div className='flex justify-center w-screen  z-50'><p className='mt-10'>No Swap found! <NavLink to="/profile" className="text-blue-600 underline">add</NavLink></p> </div> }
 
       </div>
    { requestBtn &&  <div className="w-full flex justify-end py- mt-2  ">

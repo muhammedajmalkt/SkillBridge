@@ -29,7 +29,8 @@ const App = () => {
         <Route path='/notification' element={<Notification/> }/>
         <Route path='/favorite' element={<Favorate/>}/>
         <Route path='/swap' element={<SwapTransaction/>}/>
-        <Route path='/chat' element= {<Chat/>}/>
+        {/* <Route path='/chat' element= {<Chat/>}/> */}
+        <Route path='/chat/:userId' element= {<Chat/>}/>
 
      </Routes>
      <Toaster />
