@@ -100,7 +100,7 @@ const {data:skills,isLoading,error,} = useQuery({
                             <h1 className="text-md hover:text-[#6d28d2] h-[78px] overflow-hidden">{item.offeredTitle}</h1>
                             <h1 className="bg-[#F8F8F9] text-sm text-gray-500 mt-4 py-1 text-center">{item.offeredCategory?.toUpperCase()}</h1>
                             <button className="border border-[#6d28d2] w-full text-[#6d28d2] hover:text-white hover:bg-[#6d28d2] mt-8 text-xs px-10 py-2 rounded-3xl">
-                                REQUEST A SWAP
+                            VIEW DETAILS
                             </button>
                         </div>
                     </div>

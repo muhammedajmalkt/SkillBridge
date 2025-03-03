@@ -33,18 +33,21 @@ const rejectRequest = async (transactionId) =>{
     const {data} = await axiosInstance.delete(`/user/rejectrequest/${transactionId}`,)
     return data
 }
+const createQst = async (Questionnaire)=>{
+    const {data} =await axiosInstance.post ("/user/createquest",Questionnaire)
+    return data
+}
+
 export const useCreateSwap = ()=>{
     return useMutation({
         mutationFn:createSwap,
     })
 }
-
 export const useDeleteSwap = ()=>{
     return useMutation ({
         mutationFn:deleteSwap
     })
 }
-
 export const useCreateTransaction = ()=>{
     return useMutation({
         mutationFn:createTransaction
@@ -65,3 +68,8 @@ export const useReject = ()=>{
         mutationFn:rejectRequest
     })
 } 
+export const useCreateQst = () =>{
+    return useMutation ({
+        mutationFn:createQst
+    })
+}

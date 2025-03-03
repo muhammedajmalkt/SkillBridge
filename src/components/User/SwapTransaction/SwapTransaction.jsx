@@ -6,7 +6,7 @@ import { MdStarRate } from "react-icons/md";
 import { useAccept, useReject, useUnswap } from '../../../hooks/useSwap';
 import toast  from 'react-hot-toast'
 import ConfirmModal from './confirmModal';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { requstReceiver } from '../../../Redux/Feature/swapRequest';
 
@@ -119,10 +119,11 @@ naviagte(`/details/${id}`)
       {swaped?.length > 0 ? swaped?.map((swap) => (
       swap?.receiverSkill?.map((prd) => (
     <div className='flex border border-gray-300 p-3 rounded gap-8 mb-5' key={prd?.skillId?._id}>
-      <img src={prd?.skillId?.neededImage} alt='image' className='h-28 w-48 object-cover bg-slate-500'/>
+      <img src={prd?.skillId?.offeredImage} alt='image' className='h-28 w-48 object-cover bg-slate-500'/>
       <div className='flex flex-col gap-2 w-[800px] cursor-pointer' onClick={() => handleSend(prd?.skillId?._id)}>
-        <h1>{prd?.skillId?.neededTitle}</h1>
-        <h1 className='text-sm text-gray-500'>{prd?.skillId?.neededCategory?.toUpperCase()}</h1>
+        <h1>{prd?.skillId?.offeredTitle}</h1>
+        <h1 className='text-sm '>Experience - {prd?.skillId?.offeredExpireince}</h1>
+        <h1 className='text-sm text-gray-500'>{prd?.skillId?.offeredCategory?.toUpperCase()}</h1>
         <h1 className='text-xs font-semibold mb-1 text-[#8b4309] flex items-center gap-1'> 
           <MdStarRate/> {"4.7 Rating"}
         </h1>
@@ -136,7 +137,7 @@ naviagte(`/details/${id}`)
       </div>
     </div>
   ))
-)) :<div className='flex justify-center '><h1>No skill found</h1></div>}
+)) :<div className='flex justify-center '><h1>No swap found!</h1><NavLink to={"/swapskill"} className="ml-1 underline text-blue-600">add.</NavLink> </div>}
       </div>}
 
 
@@ -163,11 +164,11 @@ naviagte(`/details/${id}`)
               {swap.receiverSkill?.flatMap((jk) => jk?.skillId)?.map((item) => (
               <div className=' w-[500px] h-[180px]  shadow-md p-3 rounded gap-8 mt-5 cursor-pointer border border-red-500' onClick={()=>handleDetailss(item._id)}>
               <div className='flex gap-8'>
-              <img src={item.neededImage} className='h-28 w-48 object-cover bg-slate-400' alt='Skill' />
+              <img src={item.offeredImage} className='h-28 w-48 object-cover bg-slate-400' alt='Skill' />
               <div className='flex flex-col gap-1 w-[400px]'>
-                <h1 className='line-clamp-3'>{item.neededTitle}</h1>
-                {/* <h1 className='text-sm'>Experience - {item.offeredExpireince}</h1> */}
-                <h1 className='text-sm text-gray-500 mt-3'>{item.neededCategory?.toUpperCase()}</h1>
+                <h1 className='line-clamp-3'>{item.offeredTitle}</h1>
+                <h1 className='text-sm mt-3'>Experience - {item.offeredExpireince}</h1>
+                <h1 className='text-sm text-gray-500 '>{item.offeredCategory?.toUpperCase()}</h1>
                 <h1 className='text-xs font-semibold mb-1 text-[#8b4309] flex items-center gap-1'>
                   <MdStarRate /> {"4.7 Rating"}
                 </h1>
@@ -177,13 +178,12 @@ naviagte(`/details/${id}`)
              </div>
 
               <div className='flex justify-end items-end gap-4 text-sm text-white mt-2 mr-[180px] '>
-                <button className='borderw px-5 py-1 rounded bg-red-600' onClick={()=>handleDecline(swap._id)}>DECLINE</button>
-                   {modal && <ConfirmModal rejectId={rejectId} setModal={setModal} />}
-                   {swap.isPending ?
-                <button className='borderw px-5 py-1 rounded  bg-green-700' onClick={() => handleAccept(swap._id)}>ACCEPT </button>:
+                {modal && <ConfirmModal rejectId={rejectId} setModal={setModal} />}
+                {swap.isPending ?<>
+                <button className='borderw px-5 py-1 rounded bg-red-600' onClick={()=>handleDecline(swap._id)}>DECLINE</button> 
+                <button className='borderw px-5 py-1 rounded  bg-green-700' onClick={() => handleAccept(swap._id)}>ACCEPT </button>
+                </>:
                 <button className='borderw px-5 py-1 rounded  bg-green-700' onClick={()=>handleChat(swap.requesterSkill[0]?.userId)}>Continue with Chat</button>}
-
-
               </div>
             </div>
            

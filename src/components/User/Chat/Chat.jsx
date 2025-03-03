@@ -46,7 +46,8 @@ const {userId:receiverId} = useParams()
       const {data} = await axiosInstance.get(`/user/getchat/${receiverId}`)
       setChats(data.data)
       return data.data
-    } 
+    } ,
+ 
   })
 
   // Timestamp Formatting Function
@@ -61,7 +62,7 @@ const formatTimestamp = (timestamp) => {
   queryFn:async () =>{
     const {data} = await axiosInstance.get(`/user/finduser/${receiverId}`)
     return data.data
-  }, enabled :!!receiverId
+  }, enabled :!!receiverId 
 })
 
   return (
@@ -79,7 +80,7 @@ const formatTimestamp = (timestamp) => {
             return (
               <div key={index} className={`flex   ${isSender ? "justify-end  " : "justify-start "} w-full`}>
             <div className={isSender ? "flex flex-row-reverse gap-2":"flex gap-2"}>
-            <img src={isSender ? user?.image : receiver?.image} className="w-10 h-10 rounded-full object-cover"/>
+            <img src={isSender ? user?.image : receiver?.image} className="w-10 h-10 rounded-full object-cover bg-gray-500"/>
                 <div
                   className={`px-4 py-2 text-white max-w-xs md:max-w-md lg:max-w-lg shadow-md h-11
                   ${isSender ? "bg-[#6c28d293] rounded-tl-lg rounded-br-lg rounded-bl-lg" : "bg-gray-500 rounded-tr-lg rounded-br-lg rounded-bl-lg"}`}

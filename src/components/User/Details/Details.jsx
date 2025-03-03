@@ -107,7 +107,7 @@ if(isLoading) return <div className='mt-[72px] h-screen flex justify-center item
                   <span> <CiClock2/> </span>Duration:<span className='w-full text-end'>{details.hours }hr</span>
                 </h1>
                <h1 className='flex items-center border-b py-3 gap-1'> < HiLanguage/> Language:   <span className='w-full text-end'>English</span></h1>
-               <h1 className='flex items-center border-b py-3 gap-1'> < BiCategory/> Categoy:   <span className=' w-full text-end text-[13px]'>{details.offeredCategory.toUpperCase()}</span></h1>
+               <h1 className='flex items-center border-b py-3 gap-1'> < BiCategory/> Category:   <span className=' w-full text-end text-[13px]'>{details.offeredCategory.toUpperCase()}</span></h1>
                <h1 className='flex items-center  py-3 gap-1'> < HiOutlineCheckBadge/> Certificate: <span className='w-full text-end'>No</span></h1>
 
             <button className='bg-[#6d28d2] rounded-3xl py-2 text-white hover:bg-[#892de1] hover:ease-in my-4' onClick={()=>handleRequest(details)}> REQUEST A SWAP</button>

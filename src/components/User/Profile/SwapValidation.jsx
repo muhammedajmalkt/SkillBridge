@@ -15,7 +15,11 @@ export const swapValidation =Yup.object({
         //  neededImage:Yup.string(),
         hours: Yup.number().min(1, "Min 1 hour").max(14, "Max 14 hours").required("Required"),
 
-    
+        currentQuestion: Yup.string().required("Question is required"),
+        answers: Yup.array().of(Yup.string().required("Answer is required")).min(3, "Three answers are required"),
+        correctAnswer: Yup.string().required("Correct answer is required"),
+        difficulty: Yup.string().oneOf(["Easy", "Inter", "Expert"], "Invalid difficulty level"),
+      
     
 })
 
