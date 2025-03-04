@@ -9,7 +9,7 @@ const Profile = () => {
  const  [visible,setVisible]=useState("")
  const {  user } = useSelector((state) => state.auth)
 
-console.log(user);
+// console.log(user);
 
   return (
     <div className='mt-[72px] flex flex-row  justify-center max-w-[1862px]  p-6 '>

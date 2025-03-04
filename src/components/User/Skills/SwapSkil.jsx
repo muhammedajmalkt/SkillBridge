@@ -43,7 +43,7 @@ const {data:skills,isLoading,error,} = useQuery({
   
  
   
-  // if(isLoading)return  <div className='mt-[72px] h-screen flex justify-center items-center '><Loader /></div>
+  if(isLoading)return  <div className='mt-[72px] h-screen flex justify-center items-center '><Loader /></div>
   if(error) return <p className="text-center w-full h-screen mt-[72px]">No skills found!</p>
    
   return (
@@ -84,8 +84,8 @@ const {data:skills,isLoading,error,} = useQuery({
         <div className="flex justify-center mt-[8px] mb-28 px-24 pt-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 
-               {isLoading ? <div className='mt-[72px] w-screen h-screen flex justify-center items-center '><Loader /></div> :
-                skills?.data.length > 0 ? skills?.data.map((item,index)=>( 
+               
+                {skills?.data.length > 0 ? skills?.data.map((item,index)=>( 
                     <div
                         onClick={()=>productClick(item._id)}
                         key={index}

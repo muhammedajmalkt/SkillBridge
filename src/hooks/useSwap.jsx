@@ -33,8 +33,8 @@ const rejectRequest = async (transactionId) =>{
     const {data} = await axiosInstance.delete(`/user/rejectrequest/${transactionId}`,)
     return data
 }
-const createQst = async (Questionnaire)=>{
-    const {data} =await axiosInstance.post ("/user/createquest",Questionnaire)
+const isCompleted = async ({transactionId,role}) =>{
+    const {data} = await axiosInstance.put("/user/iscompleted",{transactionId,role})
     return data
 }
 
@@ -68,8 +68,8 @@ export const useReject = ()=>{
         mutationFn:rejectRequest
     })
 } 
-export const useCreateQst = () =>{
+export const useComplete = ()=>{
     return useMutation ({
-        mutationFn:createQst
+        mutationFn :isCompleted
     })
 }

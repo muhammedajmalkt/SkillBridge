@@ -1,15 +1,16 @@
 import { AnimatePresence,motion } from 'framer-motion'
 import React, { useState } from 'react'
-import { useReject } from '../../../hooks/useSwap'
+import { useComplete, useReject } from '../../../hooks/useSwap'
 import toast  from 'react-hot-toast'
 import { useQueryClient } from '@tanstack/react-query'
 
-const ConfirmModal = ({rejectId,setModal}) => {
-  const [confirmDecline,setConfirmDecline] =useState(false)
+const ConfirmModal = ({rejectId,setModal,complete,setComplete}) => {
   const {mutate:rejectRequest} = useReject()
   const queryClient = useQueryClient();
+  const {mutate:iscompleted} = useComplete()
 
   const sureLogout= ()=>{
+    if(rejectId){
          rejectRequest(rejectId,{
           onSuccess : () =>{
             queryClient.invalidateQueries(["getReceived"]); 
@@ -26,7 +27,32 @@ const ConfirmModal = ({rejectId,setModal}) => {
             });
           }
          },)
-     
+        }else{
+          if (!complete?.transactionId || !complete?.role) {
+            console.error("Missing transactionId or role in complete data");
+            console.log(complete);
+            
+            return;
+          }
+          iscompleted(complete,{
+            onSuccess:(data)=>{
+              setModal(false)
+              console.log(data);
+              setComplete({transactionId:"",role:"" })
+            },
+            onError: (err) => {
+              toast.error(err.response?.data?.message || "An error occured", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+              })
+            }
+          })
+
+        }
   }
   return (
     <AnimatePresence>
@@ -53,7 +79,7 @@ const ConfirmModal = ({rejectId,setModal}) => {
             >✕</button>
           </div>
 
-          <p className="dark:text-gray-300 mb-4">Are you sure ?</p>
+          <p className="dark:text-gray-300 mb-4">{ rejectId ? "Are you sure ?" : "Are you sure you want to mark this as completed ?"}</p>
 
           <hr className="border-gray-700 mb-4" />
 
@@ -67,8 +93,7 @@ const ConfirmModal = ({rejectId,setModal}) => {
             <button
               className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white transition"
               onClick={sureLogout}
-            >
-              Decline
+            >{ rejectId? "Decline":"Completed"}
             </button>
           </div>
         </motion.div>

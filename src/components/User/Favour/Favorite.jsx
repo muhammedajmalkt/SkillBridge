@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useCreateQst } from "../../../hooks/useSwap";
+// import { useCreateQst } from "../../../hooks/useSwap";
+import { useFormik } from "formik";
 
 const QuestionCollector = ({formik}) => {
   const [questions, setQuestions] = useState([]);
@@ -51,28 +52,35 @@ const QuestionCollector = ({formik}) => {
       alert("Ensure all fields are filled and the correct answer is in the options.");
     }
   };
-  const {mutate:createQst} =useCreateQst()
-  const handleSave = () =>{
-    console.log(questions);
-    createQst(questions,{
+  // const {mutate:createQst} =useCreateQst()
+  // const handleSave = () =>{
+  //   console.log(questions);
+  //   createQst(questions,{
       
-     onSuccess:(data)=>{
-      console.log(data,"suceess");
+  //    onSuccess:(data)=>{
+  //     console.log(data,"suceess");
       
-     },
-     onError:(err)=>{
-      console.log(err);
+  //    },
+  //    onError:(err)=>{
+  //     console.log(err);
       
-     }
-    })
+  //    }
+  //   })
     
+  // }
+  
+  console.log(formik);
+  
+  onsubmit :(values) =>{
+
   }
-  console.log(questions);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
-      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
-        <form onSubmit={formik.handleSubmit}>
+      {/* <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
+        <form 
+        onSubmit={formik.handleSubmit}
+        >
           <h2 className="text-lg font-semibold mb-4">Enter a Question</h2>
           <input
             type="text"
@@ -162,7 +170,7 @@ const QuestionCollector = ({formik}) => {
             </ul>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

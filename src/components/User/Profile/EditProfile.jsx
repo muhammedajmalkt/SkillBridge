@@ -24,12 +24,13 @@ const EditProfile = () => {
 
   
   const handleSave =(values)=>{
-    console.log(values);
+    // console.log(values);
   const formData = new FormData()
    formData.append("name",values.name)
    formData.append("bio",values.bio)
    formData.append("link",values.link)
    formData.append("image",values.image)
+
   editProfile(formData,{        
     onSuccess:(data)=>{
     dispatch(loginSuccess(data))
