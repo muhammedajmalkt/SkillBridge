@@ -13,6 +13,7 @@ import Details from './components/User/Details/Details';
 import "./App.css"
 import { Toaster } from 'react-hot-toast';
 import Chat from './components/User/Chat/Chat';
+import Assess from './components/User/Assessment/Assess';
 // import Chat from './components/User/SwapTransaction/Chat';
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
         <Route path='/swap' element={<SwapTransaction/>}/>
         {/* <Route path='/chat' element= {<Chat/>}/> */}
         <Route path='/chat/:userId' element= {<Chat/>}/>
+        <Route path='/assess/:skillId/:transactionId' element = {<Assess/>}/>
 
      </Routes>
      <Toaster />

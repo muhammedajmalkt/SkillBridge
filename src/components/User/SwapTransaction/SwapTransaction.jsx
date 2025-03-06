@@ -17,12 +17,14 @@ const SwapTransaction = () => {
   const {user} = useSelector((state)=>state.auth)
   const queryClient = useQueryClient();
   const {mutate:acceptRequest} = useAccept()
-  const {mutate:rejectRequest} = useReject ()
   const [modal,setModal] = useState(false)
   const [rejectId,setRejectId] = useState(null)
   const naviagte = useNavigate()
-  const dispatch = useDispatch()
-  const [complete,setComplete] = useState(null)
+  const [complete,setComplete] = useState({
+    transactionId:"",
+    role:""
+  })
+  
 
 
   const {data:swaped,isLoading} = useQuery({
@@ -44,7 +46,6 @@ const SwapTransaction = () => {
     enabled: !!user?._id
   })
   // console.log("hh",swaped);
-  // console.log("kk",received);
 
  const handleUnswap = (id) =>{
    unswap(id,{
@@ -102,7 +103,8 @@ naviagte(`/details/${id}`)
  const handleWithChat = (receiverId) =>{
   naviagte(`/chat/${receiverId}`)
  }
- const isCompleted = (id )=>{
+ const isCompletedRequested = (id )=>{
+  console.log("compl",id);
   setModal(true)
   setComplete({
     transactionId:id,
@@ -116,6 +118,15 @@ naviagte(`/details/${id}`)
     role:"receiver"
   })
  }
+ console.log(received);
+ const handleAssessment = (skillId,transactionId)=>{
+  const tra = received.find((item)=>item._id === transactionId)
+  if(!tra.isCompletedByRequester){
+     return alert("sudu")
+  }
+  naviagte(`/assess/${skillId}/${transactionId}`)
+}
+  
  if(isLoading) return <div className='mtg-[72px] h-screen flex justify-center items-center '><Loader /></div>
   
   return (
@@ -143,12 +154,13 @@ naviagte(`/details/${id}`)
       
       <div className='flex justify-end items-end text-sm'>
         {swap.isPending ?
-          <button className=' px-5 py-1 rounded bg-red-600 text-white' onClick={() => handleUnswap(swap._id)}>UNSWAP</button>
-           :
+          <button className=' px-5 py-1 rounded bg-red-600 text-white' onClick={() => handleUnswap(swap._id)}>UNSWAP</button>:
            <>
           <button className=' py-1 rounded px-5 bg-green-700 text-white' onClick={() => prd?.userId && handleWithChat(prd?.userId)}>Continue with Chat</button>
-          <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' onClick={() =>isCompleted(swap._id)}>{!swap.isCompletedByRequester ? "Is Completed?" : "Assess" }</button>
-          {modal && <ConfirmModal complete={complete} setComplete={setComplete} setModal={setModal}   />}
+          {!swap.isCompletedByRequester ?
+          <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' onClick={() =>isCompletedRequested(swap._id)}> Is Completed?</button>:
+          <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' >Assess ⌷</button>}
+          {modal && <ConfirmModal complete={complete} setComplete={setComplete}  setModal={setModal}   />}
            </>
 
 
@@ -197,14 +209,17 @@ naviagte(`/details/${id}`)
              </div>
 
               <div className='flex justify-end items-end gap-4 text-sm text-white mt-2 mr-[180px] '>
-                {modal && <ConfirmModal rejectId={rejectId} setModal={setModal}   />}
+                {modal && <ConfirmModal rejectId={rejectId} setModal={setModal}   complete={complete} />}
                 {swap.isPending ?<>
                 <button className='borderw px-5 py-1 rounded bg-red-600' onClick={()=>handleDecline(swap._id)}>DECLINE</button> 
                 <button className='borderw px-5 py-1 rounded  bg-green-700' onClick={() => handleAccept(swap._id)}>ACCEPT </button>
                 </>:
                 <>
                 <button className='borderw px-5 py-1 rounded  bg-green-700' onClick={()=>handleChat(swap.requesterSkill[0]?.userId)}>Continue with Chat</button>
-                <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' onClick={() =>isCompletedReceived(swap._id)}>{!swap.isCompletedByRequester ? "Is Completed?" : "Assess" }</button>
+                {!swap.isCompletedByReceiver ?
+                <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' onClick={() =>isCompletedReceived(swap._id)}> Is Completed?</button>:
+                <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' onClick={()=>handleAssessment(item._id,swap._id)}> Assess ⌷</button>}
+
                 </>
 }
               </div>

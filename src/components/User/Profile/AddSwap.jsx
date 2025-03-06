@@ -5,10 +5,12 @@ import { useCreateSwap } from '../../../hooks/useSwap';
 import toast from 'react-hot-toast';
 import { FaSpinner } from 'react-icons/fa';
 import { swapValidation } from './SwapValidation';
+import { useNavigate } from 'react-router-dom';
 
 const AddSwap = () => {
   const { mutate: createSwap, isPending } = useCreateSwap();
   const [next, setNext] = useState('offered');
+  const naviagte = useNavigate()
 
 
   const formik = useFormik({
@@ -58,6 +60,7 @@ const AddSwap = () => {
             draggable: true,
           });
           // formik.resetForm();
+          // naviagte("/swapskill")
         },
         onError: (err) => {
           toast.error(err.response?.data?.message || 'An error occurred', {
@@ -451,7 +454,7 @@ const AddSwap = () => {
                 Add Question
               </button>
 
-              {formik.values.questions.length >= 2 && (
+              {formik.values.questions.length >=2 && (
               <button type="submit" className="bg-[#6d28d2] text-white px-5 py-1 text-lg rounded-md mt-4" onClick={handleSave}>
              {isPending ? <span className='flex items-center'> Loading <FaSpinner className="animate-spin ml-2" /></span> : "Submit & Save Questions"}
                </button>
