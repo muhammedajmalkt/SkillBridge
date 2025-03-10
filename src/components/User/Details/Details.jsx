@@ -3,15 +3,15 @@ import { CiClock2 } from "react-icons/ci";
 import { HiLanguage } from "react-icons/hi2";
 import { HiOutlineCheckBadge } from "react-icons/hi2";
 import { BiCategory } from "react-icons/bi";
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axiosInstance from '../../../api/axiosInstance';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import Loader from '../Layout/Loader';
 import SwapWith from '../SwapTransaction/SwapWith';
 import toast  from 'react-hot-toast'
-
-
+import { IoBookmarkOutline } from "react-icons/io5";
+import { IoBookmark } from "react-icons/io5";
 
 
 
@@ -22,6 +22,7 @@ const [request,setRequest]=useState(false)
 const [receiverSkill,setReceiverSkill]=useState(null)
 const {isAuthenticated} = useSelector((state)=>state.auth)
 const navigate = useNavigate("/")
+const queryClient = useQueryClient()
 
 
 const {data:details,isLoading}=useQuery({
@@ -34,30 +35,88 @@ const {data:details,isLoading}=useQuery({
 })
 // console.log(details);
 
+const {mutate }=useMutation({
+  mutationFn: async ({skillId}) =>{    
+    const {data} = await axiosInstance.post("/user/addtofavourite",{skillId})
+    return data
+  }
+})
+const {mutate:remove} =useMutation({
+  mutationFn: async({skillId})=>{
+   const {data} = await axiosInstance.put("/user/removefromfavourite",{skillId})
+    return data
+  }
+})
 
 const handleRequest = (details) =>{   
   if(!isAuthenticated){
     toast.error( "An error occurred,Please Login", {
       position: "top-right",
       autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
     });
     return  navigate("/")
   }
   setRequest(true)
   setReceiverSkill(details)
 }
+const handleFavourite = (id)=>{
+  if(isAuthenticated){
+  mutate({skillId:id},{
+    onSuccess: (data)=>{
+      toast.success(data.message, {
+        position: "top-right",
+        autoClose: 3000,
+      })
+        // Manually update the local state before refetching
+        queryClient.setQueryData(["getfavour"], (oldData) => {
+          return oldData ? [...oldData, id] : [id];
+        });
+
+      queryClient.invalidateQueries(["getfavour"])
+    },
+    onError:(error)=>{
+      toast.error(  error.response?.data?.message,"An error occurred", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    }
+  }) 
+}else{
+  toast.error( "Session Expired,Please Log in", {
+    position: "top-right"})   
+    navigate("/")  
+}
+}
+const handelRemoveFav =(id)=>{
+  remove({skillid:id},{
+    onSuccess:()=>{
+           // Manually update the local state before refetching
+           queryClient.setQueryData(["getfavour"], (oldData) => {
+            return oldData ? oldData.filter((favId) => favId !== id) : [];
+          });
+      queryClient.invalidateQueries(["getfavour"])
+    }})
+}
+const {data:favour} = useQuery({
+  queryKey:["getfavour"],
+  queryFn : async()=>{
+    const {data} = await axiosInstance.get("/user/showfavourite")
+    return data.data.favouriteSkills
+  }
+})
+const isInFavourite= (productId)=>{
+  return favour?.length > 0 && favour.find(item=>item._id === productId)
+}
+
 if(isLoading) return <div className='mt-[72px] h-screen flex justify-center items-center '><Loader /></div>
 
   return (
     <div className='h-auto mt-[2px]'>
-            
             <div className='bg-slate-100 h-64 '>
             <h1 className='w-full p-32 text-2xl font-bold text-[#181818]'>{details.offeredTitle}</h1>
         </div>
+        <button className={ `scale-150 w-fit ml-32  text-[#6d28d2]   `}  onClick={() => isInFavourite(details._id)? handelRemoveFav(details._id):handleFavourite(details._id)}>
+        {isInFavourite(details._id) ? <IoBookmark/> : <IoBookmarkOutline/>}</button>
 
        {/* {left} */}
      <div className='m-8 flex gap-10 justify-center text-gray-600'>
@@ -100,7 +159,7 @@ if(isLoading) return <div className='mt-[72px] h-screen flex justify-center item
         {/* {right} */}
      <div className=''>
          <div className='border p-4 rounded-md  h-fit'>
-            <img className='w-80 object-fill rounded-md mb-4  '
+            <img className='w-80 h-48 object-cover rounded-md mb-4 bg-slate-500  '
             src={details.offeredImage ||'sample.png'} alt='skillpic' />
             <div className='flex flex-col gap-5 text-[15px]'> 
                 <h1 className='flex  items-center border-b py-3 gap-1'>
@@ -121,6 +180,7 @@ if(isLoading) return <div className='mt-[72px] h-screen flex justify-center item
                   <h1 className='text-sm mb-1'>{details.userId.bio || ""} </h1>
                   <h1 className='text-xs font-semibold mb-1 text-[#8b4309]'>{"4.7 Rating"}</h1>
                   <h1 className='text-xs'>{"7 "}Skill Swaped</h1>
+
                 </div>
              </div>
        </div>

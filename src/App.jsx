@@ -14,7 +14,7 @@ import "./App.css"
 import { Toaster } from 'react-hot-toast';
 import Chat from './components/User/Chat/Chat';
 import Assess from './components/User/Assessment/Assess';
-// import Chat from './components/User/SwapTransaction/Chat';
+import Group from './components/User/Group/group';
 
 const App = () => {
   return (
@@ -30,9 +30,10 @@ const App = () => {
         <Route path='/notification' element={<Notification/> }/>
         <Route path='/favorite' element={<Favorate/>}/>
         <Route path='/swap' element={<SwapTransaction/>}/>
-        {/* <Route path='/chat' element= {<Chat/>}/> */}
         <Route path='/chat/:userId' element= {<Chat/>}/>
-        <Route path='/assess/:skillId/:transactionId' element = {<Assess/>}/>
+        <Route path='/assess/:skillId/:transactionId/:requesterId' element = {<Assess/>}/>
+        <Route path='/group' element={<Group/>}/>
+
 
      </Routes>
      <Toaster />

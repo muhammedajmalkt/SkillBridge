@@ -60,57 +60,117 @@ const EditProfile = () => {
 }  
   
   return (
-<div className='border border-gray-600  '>
-            <div className='border-b  border-gray-600  h-[92px] py-4 text-center'>
-            <h1 className='text-20px font-semibold' >Public profile </h1>
-            <h3 className='text-sm'>Add information about yourself</h3>
-            </div>
+<div className=" rounded-lg shadow-md bg-white mb-10">
+  {/* Header Section */}
+  <div className="border-b border-gray-300 py-2 text-center bg-gradient-to-r from-purple-600 to-indigo-600 rounded-t-lg h-14">
+    <h1 className="font-medium text-white">Public Profile</h1>
+    <h3 className="text-xs text-gray-200">Edit Information </h3>
+  </div>
 
-            <Formik   initialValues={{ 
-              name:user?.name || "",
-              bio:user?.bio || "",
-              link:user?.link || "",
-              image:user?.image || ""
-              // image:null
-            }} validationSchema={profileEditValidation} onSubmit={handleSave}>
-        {({setFieldValue})=>(
-            <Form>
-            <div className='flex flex-col justify-center p-10 mx-32 gap-1 text-sm text-gray-600 '>
-              <h1 className='font-semibold text-gray-700 '>Basics </h1>
-              <Field name="name" className='border border-gray-600  px-4 h-9 mb-5  rounded-md'
-              type='text'   initialValues={{name:user?.name || "" }} />
-               <ErrorMessage name='name' component="small" className="text-red-600 mb-5 min-h-[5px] text-xs block"/>
+  {/* Form Section */}
+  <Formik
+    initialValues={{
+      name: user?.name || "",
+      bio: user?.bio || "",
+      link: user?.link || "",
+      image: user?.image || "",
+    }}
+    validationSchema={profileEditValidation}
+    onSubmit={handleSave}
+  >
+    {({ setFieldValue }) => (
+      <Form>
+        <div className="flex flex-col p-8 mx-auto max-w-2xl gap-4 text-sm text-gray-600">
+          {/* Name Field */}
+          <div>
+            <h1 className="font-semibold text-gray-700 mb-2">Basics</h1>
+            <Field
+              name="name"
+              className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              type="text"
+              placeholder="Name"
+            />
+            <ErrorMessage
+              name="name"
+              component="small"
+              className="text-red-500 text-xs mt-1 block"
+            />
+          </div>
 
-           
-                <Field name="bio"  className='border border-gray-600  px-4 h-9 rounded-md '
-                type='text' placeholder='Headline'/>
-                <label className='text-xs mb-5'>Add a professional headline like, "Instructor at ABC" or "Web Developer."</label>
-                <ErrorMessage name='bio' component="small" className="text-red-600 mb-5 min-h-[5px] text-xs block"/>
+          {/* Bio Field */}
+          <div>
+            <Field
+              name="bio"
+              className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              type="text"
+              placeholder="Headline"
+            />
+            <label className="text-xs text-gray-500 mt-1 block">
+              Add a professional headline like, "Instructor at ABC" or "Web Developer."
+            </label>
+            <ErrorMessage
+              name="bio"
+              component="small"
+              className="text-red-500 text-xs mt-1 block"
+            />
+          </div>
 
-                <Field name="link"  className='border border-gray-600  px-4 h-9 rounded-md '
-                type='url' placeholder='Link'/>
-                <label className='text-xs mb-5'>Add Your Social Links like, gitgub. </label>
-                <ErrorMessage name='link' component="small" className="text-red-600 mb-5 min-h-[5px] text-xs block"/>
+          {/* Link Field */}
+          <div>
+            <Field
+              name="link"
+              className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              type="url"
+              placeholder="Link"
+            />
+            <label className="text-xs text-gray-500 mt-1 block">
+              Add your social links like GitHub, LinkedIn, etc.
+            </label>
+            <ErrorMessage
+              name="link"
+              component="small"
+              className="text-red-500 text-xs mt-1 block"
+            />
+          </div>
 
+          {/* Image Upload */}
+          <div>
+            <input
+              name="image"
+              type="file"
+              className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              onChange={(e) => setFieldValue("image", e.target.files[0])}
+            />
+            <label className="text-xs text-gray-500 mt-1 block">
+              Choose an image for your profile.
+            </label>
+            <ErrorMessage
+              name="image"
+              component="small"
+              className="text-red-500 text-xs mt-1 block"
+            />
+          </div>
 
-                <input name="image" className="border border-gray-600 px-4 py-2 rounded-md"
-                      type='file'
-                      onChange={(e)=>setFieldValue("image", e.target.files[0])}
-                       />
-                      <label className='text-xs mb-3'>Choose an image for  your Profile  </label>
-                      <ErrorMessage name='image' component="small" className="text-red-600 mb-5 min-h-[5px] text-xs block"/>
-
-
-                      <button type='submit' className='bg-[#6d28d2] text-white font-md px-5 py-1 text-lg w-fit ml-[500px] rounded-md'>
-                        {isPending ?
-                        <span className='flex items-center'> Loading<FaSpinner className="animate-spin mr-2" /></span> :"Save"} 
-                        </button>
-                 <hr/>        
-            </div>
-             </Form>
-             )}
-             </Formik>
+          {/* Submit Button */}
+          <div className="flex justify-end mt-6">
+            <button
+              type="submit"
+              className="bg-purple-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+            >
+              {isPending ? (
+                <span className="flex items-center">
+                  Loading <FaSpinner className="animate-spin ml-2" />
+                </span>
+              ) : (
+                "Save"
+              )}
+            </button>
+          </div>
         </div>
+      </Form>
+    )}
+  </Formik>
+</div>
 )
 }
 

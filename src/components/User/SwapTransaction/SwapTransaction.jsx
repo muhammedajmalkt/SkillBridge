@@ -45,7 +45,6 @@ const SwapTransaction = () => {
     },
     enabled: !!user?._id
   })
-  // console.log("hh",swaped);
 
  const handleUnswap = (id) =>{
    unswap(id,{
@@ -57,9 +56,6 @@ const SwapTransaction = () => {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
               });
     }
    })
@@ -75,9 +71,7 @@ const SwapTransaction = () => {
          position: "top-right",
          autoClose: 3000,
          hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: false,
-         draggable: true,
+
        });
      }
    })
@@ -104,7 +98,6 @@ naviagte(`/details/${id}`)
   naviagte(`/chat/${receiverId}`)
  }
  const isCompletedRequested = (id )=>{
-  console.log("compl",id);
   setModal(true)
   setComplete({
     transactionId:id,
@@ -118,15 +111,27 @@ naviagte(`/details/${id}`)
     role:"receiver"
   })
  }
- console.log(received);
- const handleAssessment = (skillId,transactionId)=>{
+//  console.log(received);
+ const handleReceivedAssessment = (skillId,transactionId,receiverId)=>{
   const tra = received.find((item)=>item._id === transactionId)
   if(!tra.isCompletedByRequester){
-     return alert("sudu")
+     return toast.error("Swap cannot completed",{
+      position:"top-right"
+  });
   }
-  naviagte(`/assess/${skillId}/${transactionId}`)
+  naviagte(`/assess/${skillId}/${transactionId}/${receiverId}`)
 }
-  
+    // console.log("hh",swaped);
+const handleRequestedAssessment = (skillId,transactionId,requesterId)=>{
+  const tra = swaped.find((item)=>item._id === transactionId)
+  if(!tra.isCompletedByReceiver){
+    return toast.error("Swap connot completed",{
+        position:"top-right"
+    });
+  }
+  naviagte(`/assess/${skillId}/${transactionId}/${requesterId}`)
+}
+
  if(isLoading) return <div className='mtg-[72px] h-screen flex justify-center items-center '><Loader /></div>
   
   return (
@@ -141,7 +146,7 @@ naviagte(`/details/${id}`)
       <div className='px-4 mt-5 max-h-[800px] overflow-scroll w-fit mx-auto'>
       {swaped?.length > 0 ? swaped?.map((swap) => (
       swap?.receiverSkill?.map((prd) => (
-    <div className='flex border border-gray-300 p-3 rounded gap-8 mb-5' key={prd?.skillId?._id}>
+    <div className='flex  shadow hover:shadow-lg transition-shadow duration-300  p-3 rounded gap-8 mb-5' key={prd?.skillId?._id}>
       <img src={prd?.skillId?.offeredImage} alt='image' className='h-28 w-48 object-cover bg-slate-500'/>
       <div className='flex flex-col gap-2 w-[800px] cursor-pointer' onClick={() => handleSend(prd?.skillId?._id)}>
         <h1>{prd?.skillId?.offeredTitle}</h1>
@@ -156,10 +161,13 @@ naviagte(`/details/${id}`)
         {swap.isPending ?
           <button className=' px-5 py-1 rounded bg-red-600 text-white' onClick={() => handleUnswap(swap._id)}>UNSWAP</button>:
            <>
-          <button className=' py-1 rounded px-5 bg-green-700 text-white' onClick={() => prd?.userId && handleWithChat(prd?.userId)}>Continue with Chat</button>
           {!swap.isCompletedByRequester ?
-          <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' onClick={() =>isCompletedRequested(swap._id)}> Is Completed?</button>:
-          <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' >Assess ⌷</button>}
+          <>
+          <button className=' py-1 rounded px-5 bg-green-700 text-white' onClick={() => prd?.userId && handleWithChat(prd?.userId)}>Continue with Chat</button>
+          <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' onClick={() =>isCompletedRequested(swap._id)}> Swap Completed!</button>
+          </>
+          :
+          <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' onClick={()=>handleRequestedAssessment(prd?.skillId?._id,swap._id,swap.requesterSkill[0].userId)} >Assess ⌷</button>}
           {modal && <ConfirmModal complete={complete} setComplete={setComplete}  setModal={setModal}   />}
            </>
 
@@ -175,9 +183,9 @@ naviagte(`/details/${id}`)
 
       {/* {receive} */}
       {btn === true && 
-  <div className='px-40 mt-5 max-h-[800px] overflow-y-auto  '>
-    {received.length > 0 ?  received?.map((swap) =>(
-        swap?.requesterSkill?.flatMap((item) => item?.skillId)?.map((item) => (
+   <div className='px-40 mt-5 max-h-[800px] overflow-y-auto  '>
+    {received?.length > 0 ?  received?.map((swap) =>(
+        swap?.requesterSkill?.flatMap((i) => i?.skillId)?.map((item) => (
           <div className=' mb-5 '>
             <div className='flex gap-2 items-center justify-center'>  
             <div key={item._id} className='flex    shadow-md p-3 rounded gap-8 w-[500px] h-[180px] mt-5 cursor-pointer border-green-600 border 'onClick={()=>handleDatails(item._id)} >
@@ -215,10 +223,13 @@ naviagte(`/details/${id}`)
                 <button className='borderw px-5 py-1 rounded  bg-green-700' onClick={() => handleAccept(swap._id)}>ACCEPT </button>
                 </>:
                 <>
-                <button className='borderw px-5 py-1 rounded  bg-green-700' onClick={()=>handleChat(swap.requesterSkill[0]?.userId)}>Continue with Chat</button>
                 {!swap.isCompletedByReceiver ?
-                <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' onClick={() =>isCompletedReceived(swap._id)}> Is Completed?</button>:
-                <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' onClick={()=>handleAssessment(item._id,swap._id)}> Assess ⌷</button>}
+                <>
+                <button className='borderw px-5 py-1 rounded  bg-green-700' onClick={()=>handleChat(swap.requesterSkill[0]?.userId)}>Continue with Chat</button>
+                <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' onClick={() =>isCompletedReceived(swap._id)}> Swap Completed!</button>
+                </>
+                :
+                <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' onClick={()=>handleReceivedAssessment(item._id,swap._id,swap.receiverSkill[0]?.userId)}> Assess ⌷</button>}
 
                 </>
 }

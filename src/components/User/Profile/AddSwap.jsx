@@ -59,7 +59,7 @@ const AddSwap = () => {
             pauseOnHover: false,
             draggable: true,
           });
-          // formik.resetForm();
+          formik.resetForm();
           // naviagte("/swapskill")
         },
         onError: (err) => {
@@ -126,344 +126,315 @@ const AddSwap = () => {
   };
 
   return (
-    <div className="border border-gray-600">
-      <div className="border-b border-gray-600 h-[92px] py-4 text-center">
-        <h1 className="text-20px font-semibold">Exchange skills with others</h1>
-        <h3 className="text-sm">Add information about your Skill</h3>
-      </div>
-      <form onSubmit={formik.handleSubmit} className="p-10 mx-32 text-sm text-gray-600">
-        {next === 'offered' && (
-          <div className="flex flex-col">
-            <h1 className="font-semibold mt-6 text-gray-700">Skill Offered</h1>
-            <input
-              className="border border-gray-600 px-4 h-9 rounded-md"
-              type="text"
-              name="offeredTitle"
-              placeholder="Title"
-              value={formik.values.offeredTitle}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.offeredTitle && formik.errors.offeredTitle && (
-              <div className="text-red-500 text-xs">{formik.errors.offeredTitle}</div>
-            )}
+    <div className="rounded-lg shadow-md bg-white mb-10">
+  {/* Header Section */}
+  <div className="border-b border-gray-300  py-2 text-center bg-gradient-to-r from-purple-600 to-indigo-600 rounded-t-lg h-14">
+    <h1 className=" font-medium text-white">Exchange Skills with Others</h1>
+    <h3 className="text-xs text-gray-200">Add Information About Your Skill</h3>
+  </div>
 
-            <select
-              className="border border-gray-600 px-4 h-9 text-center rounded-md"
-              name="offeredCategory"
-              value={formik.values.offeredCategory}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            >
-              <option value="">SELECT CATEGORY</option>
-              {[
-                'art/creativity',
-                'cooking',
-                'computer/it',
-                'outdoor/sports',
-                'languages',
-                'consulting',
-                'beauty/health',
-                'education',
-                'music',
-                'others',
-              ].map((category) => (
-                <option key={category} value={category}>
-                  {category.toUpperCase()}
-                </option>
-              ))}
-            </select>
-            {formik.touched.offeredCategory && formik.errors.offeredCategory && (
-              <div className="text-red-500 text-xs">{formik.errors.offeredCategory}</div>
-            )}
+  <form onSubmit={formik.handleSubmit} className="p-8 mx-auto max-w-3xl">
+    {/* Skill Offered  */}
+    {next === 'offered' && (
+      <div className="space-y-6">
+        <h1 className="text-xl font-semibold text-gray-700">Skill Offered</h1>
 
-            <label className="text-xs">Choose your experience level:</label>
+        <div>
+          <input
+            className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            type="text"
+            name="offeredTitle"
+            placeholder="Title"
+            value={formik.values.offeredTitle}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.offeredTitle && formik.errors.offeredTitle && (<div className="text-red-500 text-sm mt-1">{formik.errors.offeredTitle}</div>)}
+        </div>
+
+        <div>
+          <select
+            className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            name="offeredCategory"
+            value={formik.values.offeredCategory}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          >
+            <option value="">SELECT CATEGORY</option>
+            {[
+              'art/creativity',
+              'cooking',
+              'computer/it',
+              'outdoor/sports',
+              'languages',
+              'consulting',
+              'beauty/health',
+              'education',
+              'music',
+              'others',
+            ].map((category) => (
+              <option key={category} value={category}>
+                {category.toUpperCase()}
+              </option>
+            ))}
+          </select>
+          {formik.touched.offeredCategory && formik.errors.offeredCategory && (<div className="text-red-500 text-sm mt-1">{formik.errors.offeredCategory}</div>)}
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Choose your experience level:</label>
+          <div className="flex space-x-4">
             {['Beginner', 'Intermediate', 'Expert'].map((level, index) => (
-              <label key={index} className="ml-2">
+              <label key={index} className="flex items-center">
                 <input
-                  className="mr-1"
-                  type="radio"
-                  name="offeredExpireince"
-                  value={level}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />{' '}
-                {level}
+                  type="radio"  name="offeredExpireince" value={level}
+                  onChange={formik.handleChange} onBlur={formik.handleBlur}
+                  className="mr-2"
+                />
+                <span className="text-sm text-gray-700">{level}</span>
               </label>
             ))}
-            {formik.touched.offeredExpireince && formik.errors.offeredExpireince && (
-              <div className="text-red-500 text-xs">{formik.errors.offeredExpireince}</div>
-            )}
-
-            <textarea
-              name="offeredDetails"
-              className="border border-gray-600 px-4 h-14 pt-2 rounded-md"
-              placeholder="Detailed information"
-              value={formik.values.offeredDetails}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.offeredDetails && formik.errors.offeredDetails && (
-              <div className="text-red-500 text-xs">{formik.errors.offeredDetails}</div>
-            )}
-
-            <input
-              type="file"
-              name="offeredImage"
-              onChange={(event) => {
-                formik.setFieldValue('offeredImage', event.currentTarget.files[0]);
-              }}
-              onBlur={formik.handleBlur}
-              className="border border-gray-600 px-4 py-2 rounded-md"
-            />
-            {formik.touched.offeredImage && formik.errors.offeredImage && (
-              <div className="text-red-500 text-xs">{formik.errors.offeredImage}</div>
-            )}
-
-            <div className="flex justify-end">
-              <button
-                type="button"
-                disabled={!isOfferedValid()}
-                onClick={() => setNext('needed')}
-                className={`text-white px-5 py-1 text-lg rounded-md mt-4 ${
-                  isOfferedValid() ? 'bg-[#6d28d2] cursor-pointer' : 'bg-gray-400'
-                }`}
-              >
-                Next
-              </button>
-            </div>
           </div>
-        )}
+          {formik.touched.offeredExpireince && formik.errors.offeredExpireince && (<div className="text-red-500 text-sm mt-1">{formik.errors.offeredExpireince}</div>)}
+        </div>
 
-        {next === 'needed' && (
-          <div className="flex flex-col">
-            <h1 className="font-semibold mt-6 text-gray-700">Skill Needed</h1>
-            <input
-              className="border border-gray-600 px-4 h-9 rounded-md"
-              type="text"
-              name="neededTitle"
-              placeholder="Title"
-              value={formik.values.neededTitle}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.neededTitle && formik.errors.neededTitle && (
-              <div className="text-red-500 text-xs">{formik.errors.neededTitle}</div>
-            )}
+        {/* Details Textarea */}
+        <div>
+          <textarea
+            name="offeredDetails"
+            className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            placeholder="Detailed information" value={formik.values.offeredDetails}
+            onChange={formik.handleChange} onBlur={formik.handleBlur}
+          />
+       <label className="text-xs text-gray-500  block">Give detail information about skill.</label>
+          {formik.touched.offeredDetails && formik.errors.offeredDetails && ( <div className="text-red-500 text-sm mt-1">{formik.errors.offeredDetails}</div> )}
+        </div>
 
-            <select
-              className="border border-gray-600 px-4 h-9 text-center rounded-md"
-              name="neededCategory"
-              value={formik.values.neededCategory}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            >
-              <option value="">SELECT CATEGORY</option>
-              {[
-                'art/creativity',
-                'cooking',
-                'computer/it',
-                'outdoor/sports',
-                'languages',
-                'consulting',
-                'beauty/health',
-                'education',
-                'music',
-                'others',
-              ].map((category) => (
-                <option key={category} value={category}>
-                  {category.toUpperCase()}
-                </option>
-              ))}
-            </select>
-            {formik.touched.neededCategory && formik.errors.neededCategory && (
-              <div className="text-red-500 text-xs">{formik.errors.neededCategory}</div>
-            )}
+        {/* Image Upload */}
+        <div>
+          <input type="file" name="offeredImage"
+             onChange={(event) => {
+              formik.setFieldValue('offeredImage', event.currentTarget.files[0]);
+            }}
+            onBlur={formik.handleBlur} className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+          <label className="text-xs text-gray-500 mt-1 block">Choose an image for your Offered Skill.</label>
+          {formik.touched.offeredImage && formik.errors.offeredImage && ( <div className="text-red-500 text-sm mt-1">{formik.errors.offeredImage}</div>)}
+        </div>
 
-            <textarea
-              name="neededDetails"
-              className="border border-gray-600 px-4 h-14 pt-2 rounded-md"
-              placeholder="Detailed information"
-              value={formik.values.neededDetails}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.neededDetails && formik.errors.neededDetails && (
-              <div className="text-red-500 text-xs">{formik.errors.neededDetails}</div>
-            )}
+        {/* Next Button */}
+        <div className="flex justify-end">
+          <button
+            type="button"
+            disabled={!isOfferedValid()}
+            onClick={() => setNext('needed')}
+            className={`px-6 py-2 text-lg rounded-lg transition-colors ${
+              isOfferedValid() ? 'bg-purple-600 text-white hover:bg-purple-700': 'bg-gray-400 text-gray-700 cursor-not-allowed'}`} 
+              >Next</button>
+        </div>
+      </div>
+    )}
 
-            <div>
-              <label>Priority:</label>
-              {['Low', 'Medium', 'High'].map((level, index) => (
-                <span key={index} className="ml-2">
-                  <input
-                    className="text-center mr-1"
-                    type="radio"
-                    name="neededPriority"
-                    value={level}
-                    checked={formik.values.neededPriority === level}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  <label>{level}</label>
-                </span>
-              ))}
-            </div>
-            {formik.touched.neededPriority && formik.errors.neededPriority && (
-              <div className="text-red-500 text-xs">{formik.errors.neededPriority}</div>
-            )}
+    {/* Skill Needed Section */}
+    {next === 'needed' && (
+      <div className="space-y-6">
+        <h1 className="text-xl font-semibold text-gray-700">Skill Needed</h1>
+        <div>
+          <input
+            className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            type="text" name="neededTitle" placeholder="Title"
+            value={formik.values.neededTitle}
+            onChange={formik.handleChange}  onBlur={formik.handleBlur}
+          />
+          {formik.touched.neededTitle && formik.errors.neededTitle && (
+            <div className="text-red-500 text-sm mt-1">{formik.errors.neededTitle}</div>
+          )}
+        </div>
 
-            <input
-              type="file"
-              name="neededImage"
-              onChange={(event) => {
-                formik.setFieldValue('neededImage', event.currentTarget.files[0]);
-              }}
-              onBlur={formik.handleBlur}
-              className="border border-gray-600 px-4 py-2 rounded-md"
-            />
-            {formik.touched.neededImage && formik.errors.neededImage && (
-              <div className="text-red-500 text-xs">{formik.errors.neededImage}</div>
-            )}
+        <div>
+          <select
+            className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            name="neededCategory"
+            value={formik.values.neededCategory}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          >
+            <option value="">SELECT CATEGORY</option>
+            {[
+              'art/creativity',
+              'cooking',
+              'computer/it',
+              'outdoor/sports',
+              'languages',
+              'consulting',
+              'beauty/health',
+              'education',
+              'music',
+              'others',
+            ].map((category) => (
+              <option key={category} value={category}>
+                {category.toUpperCase()}
+              </option>
+            ))}
+          </select>
+          {formik.touched.neededCategory && formik.errors.neededCategory && (  <div className="text-red-500 text-sm mt-1">{formik.errors.neededCategory}</div>)}
+        </div>
 
-            <input
-              className="border border-gray-600 px-4 py-2 rounded-md"
-              type="number"
-              name="hours"
-              placeholder="Hours"
-              value={formik.values.hours}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.hours && formik.errors.hours && (
-              <div className="text-red-500 text-xs">{formik.errors.hours}</div>
-            )}
+        <div>
+          <textarea
+            className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            name="neededDetails"  placeholder="Detailed information"
+            value={formik.values.neededDetails}
+            onChange={formik.handleChange} onBlur={formik.handleBlur}
+          />
+          <label className="text-xs text-gray-500  block">Give detail information about skill.</label>
+          {formik.touched.neededDetails && formik.errors.neededDetails && (<div className="text-red-500 text-sm mt-1">{formik.errors.neededDetails}</div>)}
+        </div>
 
-            <div className="flex justify-between">
-              <button
-                type="button"
-                onClick={() => setNext('offered')}
-                className="bg-[#6d28d2] text-white px-5 py-1 text-lg rounded-md mt-4"
-              >
-                Back
-              </button>
-              <button
-                type="button"
-                disabled={!isNeededValid()}
-                onClick={() => setNext('qstn')}
-                className={`text-white px-5 py-1 text-lg rounded-md mt-4 ${
-                  isNeededValid() ? 'bg-[#6d28d2] cursor-pointer' : 'bg-gray-400'
-                }`}
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        )}
-
-        {next === 'qstn' && (
-          
-          <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
-
-                <div className='h-screen  '>
-                      <div className='  text-center'>
-                          <h1 className='text-20px font-semibold' > Create Questions & Answers for Your Offered Skill</h1>
-                          <h3 className='text-sm'>Customize  Skill Assessment</h3>
-                      </div>
-                
-                        <div className='flex flex-col justify-center p-10 mx-32 gap-1 text-sm text-gray-600 '>
-                        <ul className='text-xs text-gray-500 list-disc'>
-                            <h6 className='font-semibold text-md mb-4'>Instructions for Creating Questions & Answers:</h6>
-                            <li>Ensure that the quiz contains exactly 10 questions.</li>
-                            <li>Each question must have three answer options, with one marked as the correct answer.</li>
-                            <li>Ensure a mix of difficulty levels, from easy to expert, to challenge learners progressively</li>
-                            <li>Assign points to each question based on difficulty ( eg:  Easy: 1 point,Inter: 2 points ,Expert: 3 points)</li>
-                        </ul>
-                      </div>
-                  </div>
-
-            <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-lg font-semibold mb-4">Enter a Question</h2>
-              <input
-                type="text"
-                name="currentQuestion"
-                placeholder="Type your question here"
-                value={formik.values.currentQuestion}
-                onChange={formik.handleChange}
-                className="w-full p-2 border rounded mb-4"
-              />
-              {formik.touched.currentQuestion && formik.errors.currentQuestion && (
-                <small className="text-red-600">{formik.errors.currentQuestion}</small>
-              )}
-
-              <h3 className="text-sm font-semibold mb-2">Enter 3 Answers</h3>
-              {formik.values.answers.map((answer, index) => (
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Priority:</label>
+          <div className="flex space-x-4">
+            {['Low', 'Medium', 'High'].map((level, index) => (
+              <label key={index} className="flex items-center">
                 <input
-                  key={index}
-                  type="text"
-                  name={`answers[${index}]`}
-                  placeholder={`Answer ${index + 1}`}
-                  value={answer}
-                  onChange={formik.handleChange}
-                  className="w-full p-2 border rounded mb-2"
+                  className="mr-2" type="radio" name="neededPriority" value={level}
+                  checked={formik.values.neededPriority === level}
+                  onChange={formik.handleChange} onBlur={formik.handleBlur}
                 />
-              ))}
-              {formik.touched.answers && formik.errors.answers && (
-                <small className="text-red-600">{formik.errors.answers}</small>
-              )}
-
-              <h3 className="text-sm font-semibold mb-2">Correct Answer</h3>
-              <select
-                name="correctAnswer"
-                value={formik.values.correctAnswer}
-                onChange={formik.handleChange}
-                className="w-full p-2 border rounded mb-4"
-              >
-                <option value="">Select correct answer</option>
-                {formik.values.answers.map((ans, index) => (
-                  <option key={index} value={ans}>
-                    {ans}
-                  </option>
-                ))}
-              </select>
-              {formik.touched.correctAnswer && formik.errors.correctAnswer && (
-                <small className="text-red-600">{formik.errors.correctAnswer}</small>
-              )}
-
-              <h3 className="text-sm font-semibold mb-2">Difficulty Level</h3>
-              <select
-                name="difficulty"
-                value={formik.values.difficulty}
-                onChange={formik.handleChange}
-                className="w-full p-2 border rounded mb-4"
-              >
-                <option value="Easy">Easy (1 Point)</option>
-                <option value="Inter">Inter (2 Points)</option>
-                <option value="Expert">Expert (3 Points)</option>
-              </select>
-              <button
-                type="button"
-                onClick={() => setNext('needed')}
-                className="bg-[#6d28d2] text-white px-5 py-1 text-lg rounded-md mt-4" >Back </button>
-
-              <button
-                type="button"
-                onClick={handleAddQuestion}
-                className="w-full p-2 bg-blue-500 text-white rounded mt-4 hover:bg-blue-600"
-              >
-                Add Question
-              </button>
-
-              {formik.values.questions.length >=2 && (
-              <button type="submit" className="bg-[#6d28d2] text-white px-5 py-1 text-lg rounded-md mt-4" onClick={handleSave}>
-             {isPending ? <span className='flex items-center'> Loading <FaSpinner className="animate-spin ml-2" /></span> : "Submit & Save Questions"}
-               </button>
-              )}
-            </div>
+                <span className="text-sm text-gray-700">{level}</span>
+              </label>
+            ))}
           </div>
+          {formik.touched.neededPriority && formik.errors.neededPriority && (<div className="text-red-500 text-sm mt-1">{formik.errors.neededPriority}</div>)}
+        </div>
+
+        <div>
+          <input
+            type="file"  name="neededImage"
+            onChange={(event) => {
+              formik.setFieldValue('neededImage', event.currentTarget.files[0]);
+            }}
+            onBlur={formik.handleBlur}
+            className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+          {formik.touched.neededImage && formik.errors.neededImage && (<div className="text-red-500 text-sm mt-1">{formik.errors.neededImage}</div>)}
+        </div>
+
+        <div>
+          <input
+            className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            type="number"  name="hours" placeholder="Hours"value={formik.values.hours}
+            onChange={formik.handleChange} onBlur={formik.handleBlur}
+          />
+           <label className="text-xs text-gray-500 mt-1 block">Set duration of swap skill.</label>
+          {formik.touched.hours && formik.errors.hours && (<div className="text-red-500 text-sm mt-1">{formik.errors.hours}</div>)}
+        </div>
+
+        {/* Navigation  */}
+        <div className="flex justify-between">
+          <button
+            className="px-6 py-2 text-lg rounded-lg bg-purple-600 text-white hover:bg-purple-500"
+            type="button"onClick={() => setNext('offered')}
+          >Back</button>
+          <button
+            type="button"
+            disabled={!isNeededValid()} onClick={() => setNext('qstn')}
+            className={`px-6 py-2 text-lg rounded-lg transition-colors ${isNeededValid()? 'bg-purple-600 text-white hover:bg-purple-700':
+             'bg-gray-400 text-gray-700 cursor-not-allowed'}`} > Next
+          </button>
+        </div>
+      </div>
+    )}
+
+    {/* Questions  */}
+    {next === 'qstn' && (
+      <div className="space-y-6">
+        <h1 className="text-xl font-semibold text-gray-700">Create Questions & Answers</h1>
+        <div className="bg-gray-50 p-6 rounded-lg">
+          <h3 className="text-sm font-medium text-gray-600 mb-4">Instructions:</h3>
+          <ul className="list-disc list-inside text-sm text-gray-600 space-y-2">
+            <li>Ensure that the quiz contains exactly 3 questions.</li>
+            <li>Each question must have three answer options, with one marked as the correct answer.</li>
+            <li>Ensure a mix of difficulty levels, from easy to expert, to challenge learners progressively.</li>
+            <li>Assign points to each question based on difficulty (Easy: 1 point, Intermediate: 2 points, Expert: 3 points).</li>
+          </ul>
+        </div>
+
+        <div>
+          <input
+            type="text" name="currentQuestion" placeholder="Type your question here"
+            value={formik.values.currentQuestion} onChange={formik.handleChange}
+            className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+          {formik.touched.currentQuestion && formik.errors.currentQuestion && ( <div className="text-red-500 text-sm mt-1">{formik.errors.currentQuestion}</div>)}
+        </div>
+
+        {/* Answers  */}
+        <div>
+          <h3 className="text-sm font-medium text-gray-700 mb-2">Enter 3 Answers:</h3>
+          {formik.values.answers.map((answer, index) => (
+            <input
+              key={index}  type="text"name={`answers[${index}]`}
+              placeholder={`Answer ${index + 1}`} value={answer} onChange={formik.handleChange}
+              className="w-full border border-gray-300 px-4 py-2 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          ))}
+          {formik.touched.answers && formik.errors.answers && (<div className="text-red-500 text-sm mt-1">{formik.errors.answers}</div>)}
+        </div>
+
+        {/* Correct Answer  */}
+        <div>
+          <h3 className="text-sm font-medium text-gray-700 mb-2">Correct Answer:</h3>
+          <select
+            name="correctAnswer"  value={formik.values.correctAnswer} onChange={formik.handleChange}
+            className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+          >
+            <option value="">Select correct answer</option>
+            {formik.values.answers.map((ans, index) => (
+              <option key={index} value={ans}>{ans} </option>
+            ))}
+          </select>
+          {formik.touched.correctAnswer && formik.errors.correctAnswer && ( <div className="text-red-500 text-sm mt-1">{formik.errors.correctAnswer}</div> )}
+        </div>
+
+        {/* Difficulty Level */}
+        <div>
+          <h3 className="text-sm font-medium text-gray-700 mb-2">Difficulty Level:</h3>
+          <select
+            className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            name="difficulty"  value={formik.values.difficulty}onChange={formik.handleChange}
+          >
+            <option value="Easy">Easy (1 Point)</option>
+            <option value="Inter">Intermediate (2 Points)</option>
+            <option value="Expert">Expert (3 Points)</option>
+          </select>
+        </div>
+
+        {/* Add Question Button */}
+        <button
+          type="button"
+          onClick={handleAddQuestion}
+          className="w-full px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+        > Add Question
+        </button>
+
+        {/* Submit */}
+        {formik.values.questions.length >= 2 && (
+          <button
+          className="w-full px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 mt-4"
+            type="submit" onClick={handleSave}
+          >
+            {isPending ? (
+              <span className="flex items-center justify-center">  Loading <FaSpinner className="animate-spin ml-2" /></span>
+            ) : (
+              "Submit & Save Questions"
+            )}
+          </button>
         )}
-      </form>
-    </div>
+      </div>
+    )}
+  </form>
+</div>
   );
 };
 

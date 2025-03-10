@@ -14,6 +14,7 @@ const deleteSwap = async (skillId) =>{
     return data  
 }
 
+
 /////swapTransaction
 const createTransaction = async(swapData) =>{
     const {data} = await axiosInstance.post("/user/createtransaction",swapData) 
@@ -71,5 +72,14 @@ export const useReject = ()=>{
 export const useComplete = ()=>{
     return useMutation ({
         mutationFn :isCompleted
+    })
+}
+//score
+export const usePostScore = ()=>{
+    return useMutation({
+        mutationFn:async ({skillId,assessedUser,score,transactionId})=>{        
+        const {data} = await axiosInstance.put("/user/postscore",{skillId,assessedUser,score,transactionId})        
+        return data
+    }
     })
 }

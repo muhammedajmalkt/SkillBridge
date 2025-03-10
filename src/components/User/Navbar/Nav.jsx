@@ -61,9 +61,6 @@ const Nav = () => {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
         });
         naviagte("/")
         queryClient.clear()
@@ -73,10 +70,6 @@ const Nav = () => {
         toast.error(err.response?.data?.message, {
           position: "top-right",
           autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
         });
       },
     });
@@ -91,12 +84,13 @@ const Nav = () => {
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           {/* Logo */}
           <a href="/" className="text-2xl font-bold text-[#181818]">
-            Ski<span className='text-[#6d28d2] font-bold animate-pulse '>⇅</span>Bridge</a>
+            Ski<span className='text-[#6d28d2] font-bold   '>⇅</span>Bridge</a>
 
           <div className="hidden md:flex space-x-6 text-sm">
             <Link to="/" className="text-gray-600 hover:text-[#6d28d2] ">Home</Link>
             <Link to="/swapskill" className="text-gray-600  hover:text-[#6d28d2] ">Discover</Link>
             <Link  to="/swap" className="text-gray-600  hover:text-[#6d28d2] ">Swap</Link>
+            <Link to="/group" className="text-gray-600   hover:text-[#6d28d2] ">Peer Group</Link>
             <Link to="/favorite" className="text-gray-600    hover:text-[#6d28d2] ">Favorites</Link>
             <Link to="/notification" className="text-gray-600   hover:text-[#6d28d2] ">Notifications</Link>
           </div>
