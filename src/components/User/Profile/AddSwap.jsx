@@ -54,22 +54,13 @@ const AddSwap = () => {
           toast.success(data?.message, {
             position: 'top-right',
             autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
           });
           formik.resetForm();
-          // naviagte("/swapskill")
+          naviagte("/swapskill")
         },
         onError: (err) => {
           toast.error(err.response?.data?.message || 'An error occurred', {
             position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
           });
         },
       });
@@ -90,6 +81,7 @@ const AddSwap = () => {
     return (
       formik.values.neededTitle &&
       formik.values.neededCategory &&
+      formik.values.neededPriority&&
       formik.values.neededDetails.length >= 20 &&
       formik.values.hours
     );

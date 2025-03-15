@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { data, Link, NavLink, useNavigate } from 'react-router-dom'
 import Signup from '../Registraion/Signup'
 import Login from '../Registraion/Login'
@@ -21,13 +21,21 @@ const Nav = () => {
   const dispatch = useDispatch()
   const naviagte = useNavigate()
   const queryClient = useQueryClient()
+  const dropdownRef = useRef(null)
 
 
- const handleMouseLeave =()=>{
-  setTimeout(()=>{
-  setDpClick(false)
-  },2000)
- }
+const handleMouseEnter = () => setDpClick(true);
+const handleMouseLeave = () => setDpClick(false)
+   // Close dropdown when clicking outside
+   useEffect(() => {
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setDpClick(false);
+        }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+}, []);
 
   const handleShowSignup = () => {
     setShowLogin(false)
@@ -59,8 +67,6 @@ const Nav = () => {
         console.log(data);
         toast.success(data?.message ||"Logged Out" , {
           position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
         });
         naviagte("/")
         queryClient.clear()
@@ -104,15 +110,14 @@ const Nav = () => {
 
             <div>
               <img className='h-9 w-9 rounded-full object-cover cursor-pointer'
-                src={user?.image || "dp.jpg"} alt='profile pic' onMouseEnter={() => setDpClick(true)}
-              // onMouseLeave={()=>setDpClick(false)}
-              onMouseLeave={handleMouseLeave}
+                src={user?.image || "dp.jpg"} alt='profile pic'
+                onMouseEnter={handleMouseEnter}  onClick={() => setDpClick(!dpClick)}
               />
 
               {/* {dropdwon dp} */}
               {dpClick &&
-                <div className='absolute  right-4 top-[67px] border  rounded-md bg-white shadow-2xl '>
-                 
+                <div className='absolute  right-4 top-[67px]   rounded-md bg-white shadow-2xl '
+                onMouseEnter={handleMouseEnter}   onMouseLeave={handleMouseLeave} > 
                   <Link  to="/profile">
                   <div className='flex justify-center  items-center p-3  cursor-pointer hover:bg-gray-200 '>
                     <img className='h-12 w-12 object-cover rounded-full cursor-pointer'

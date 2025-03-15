@@ -23,6 +23,8 @@ const Favorite = () => {
     mutationFn: async({skillId})=>{
      const {data} = await axiosInstance.put("/user/removefromfavourite",{skillId})
       return data
+    },onSuccess:()=>{
+      queryClient.invalidateQueries(["getfavour"])
     }
   })
   
@@ -31,7 +33,6 @@ const Favorite = () => {
 } 
 const handleRemove = (id)=>{
   mutate({skillId:id})
-  queryClient.invalidateQueries(["getfavour"])
 }    
 if(isLoading) return <div className='relative  h-screen left-[500px] top-[400px] w-full items-center '><Loader /></div> 
   return (
@@ -50,7 +51,7 @@ if(isLoading) return <div className='relative  h-screen left-[500px] top-[400px]
                         <div className="p-4">
                             <h1 className="text-md hover:text-[#6d28d2] h-[78px] overflow-hidden cursor-pointer" onClick={()=>productClick(item._id)} >{item.offeredTitle}</h1>
                             <h1 className="bg-[#F8F8F9] text-sm text-gray-500 mt-4 py-1 text-center">{item.offeredCategory?.toUpperCase() }</h1>
-                            <button className="border border-[#6d28d2] w-full text-[#6d28d2] hover:text-white hover:bg-[#6d28d2] mt-8 text-xs px-10 py-2 rounded-3xl"
+                            <button className="border border-[#6d28d2] w-full text-[#6d28d2] hover:text-white hover:bg-[#6d28d2] mt-8 text-sm px-10 py-2 rounded-3xl"
                             onClick={()=>handleRemove(item._id)}> Remove 
                             </button>
                         </div>

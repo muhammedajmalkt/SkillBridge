@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import AllSkills from './AllSkills'
 import { useQuery } from '@tanstack/react-query'
 import axiosInstance from '../../../api/axiosInstance'
-import Group from './Group'
+import GroupCreation from './GroupCreation'
 
 const Profile = () => {
  const  [visible,setVisible]=useState("")
@@ -33,13 +33,14 @@ console.log(swaped,"===============");
         src={user?.image || "dp.jpg"}
         alt="User Profile"
       />
-      <h3 className="font-semibold text-lg text-gray-800 mt-2">{user?.name}</h3>
+      <h3 >{user?.name}</h3>
       <h6 className="text-sm text-gray-600">{user?.bio}</h6>
       
       <a  href={user?.link || ""} target="_blank" rel="noopener noreferrer"
         className="text-xs text-blue-600 mt-1 w-52 truncate"
       >{user?.link || "Add Social Link"}
       </a>
+     {swaped?.length  && <h5 className=" text-sm text-gray-800 mt-2">  {swaped?.length } Skill achieved</h5>}
 
       <button onClick={() => setVisible("editProfile")}
         className={`text-xs px-4 py-1 mt-3 rounded-full bg-[#6d28d2] text-white hover:bg-[#892de1] transition ${visible === "editProfile" ? "bg-[#892de1]" : "" }`}
@@ -72,7 +73,7 @@ console.log(swaped,"===============");
     {visible === "editProfile" && <EditProfile />}
     {visible === "addSwap" && <AddSwap />}
     {visible === "allSkills" && <AllSkills />}
-    {visible === "peergroup" && <Group />}
+    {visible === "peergroup" && <GroupCreation />}
 
     {!visible && ( <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
     {swaped?.map((item, index) => (

@@ -37,11 +37,6 @@ const EditProfile = () => {
       console.log(data);
         toast.success(data?.message, {
         position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
       });
     },
     onError :(err)=>{
@@ -49,11 +44,6 @@ const EditProfile = () => {
            
           toast.error(err.response?.data?.message || "An error occurred", {
             position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
           });
     }
   })   
@@ -90,11 +80,7 @@ const EditProfile = () => {
               type="text"
               placeholder="Name"
             />
-            <ErrorMessage
-              name="name"
-              component="small"
-              className="text-red-500 text-xs mt-1 block"
-            />
+            <ErrorMessage name="name" component="small" className="text-red-500 text-xs mt-1 block" />
           </div>
 
           {/* Bio Field */}

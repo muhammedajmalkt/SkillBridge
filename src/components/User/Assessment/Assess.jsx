@@ -15,6 +15,13 @@ const Assess = () => {
   const [score, setScore] = useState(0);
   const {mutate,isSuccess} = usePostScore()
   const navigate = useNavigate()
+  const [answeredQuestions, setAnsweredQuestions] = useState(0);
+
+  // const handleAnswer = () => {
+  //   if (answeredQuestions < totalQuestions) {
+  //     setAnsweredQuestions(answeredQuestions + 1);
+  //   }
+  // };
 
 
   const { data: questionnair = [],isLoading } = useQuery({
@@ -36,6 +43,9 @@ const Assess = () => {
     }
     if (currentIndex < questionnair.length - 1) {
       setCurrentIndex(currentIndex + 1);
+      if (answeredQuestions < questionnair.length) {
+        setAnsweredQuestions(answeredQuestions + 1);
+      }
     }
   };
 
@@ -75,6 +85,16 @@ if(isLoading)return <div className='h-screen flex justify-center items-center '>
   return (
     <div className="h-screen w-full flex flex-col items-center justify-center bg-gray-100 p-6">
   {questionnair.length > 0 ? (
+    <>
+              {/* Progress Bar */}
+                {/* <p className="mt-2 font-semibold">{answeredQuestions} / {questionnair.length} </p> */}
+              <div className="w-full max-w-[665px] bg-gray-300 rounded-full h-2  ">
+              <div className="h-2 bg-blue-500 rounded-full transition-all duration-300"
+              style={{ width: `${(answeredQuestions / questionnair.length) * 100}%` }}
+              ></div>
+             </div>
+        {/* {} */}
+    
     <div className="p-8 bg-white shadow-lg rounded-lg w-full max-w-2xl mx-auto">
       {/* Question*/}
       <h1 className="text-xl font-bold text-gray-800 mb-6 text-center">
@@ -136,6 +156,7 @@ if(isLoading)return <div className='h-screen flex justify-center items-center '>
         )}
       </div>
     </div>
+    </>
   ) : (
     <p className="text-gray-500 text-lg">No questions available.</p>
   )}

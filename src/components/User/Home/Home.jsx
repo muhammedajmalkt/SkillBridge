@@ -46,10 +46,8 @@ const Home = () => {
       Swap your skills, find what you are looking for. It's all free, you just "pay" with your time.
     </p>
   </div>
-
-  {/* Image */}
   <img 
-    className="h-52 md:h-72 lg:h-[400px] w-auto object-contain" 
+    className="h-52 md:h-72 lg:h-[350px] w-auto object-contain" 
     src="home.png" 
     alt="SkillBridge Home"
   />
@@ -72,7 +70,7 @@ const Home = () => {
               animate={{ opacity: 1, scale: 1 }} 
               transition={{ duration: 0.8, delay: index * 0.2 }} 
               whileHover={{ scale: 1.05, y: -5 }} 
-              className="group flex flex-col h-[400px] w-[280px] shadow-xl rounded-sm mb-44 overflow-hidden cursor-pointer"
+              className="group flex flex-col h-[380px] w-[280px] shadow-xl rounded-sm mb-44 overflow-hidden cursor-pointer"
             >
               <motion.img
                 className="h-[160px] object-cover rounded-t-sm w-full transition-transform duration-300 ease-in-out group-hover:scale-110"
@@ -80,7 +78,7 @@ const Home = () => {
                 alt={item.offeredTitle}
               />
               <div className="p-4">
-                <h1 className="text-md hover:text-[#6d28d2] h-[78px] overflow-hidden">
+                <h1 className="text-md hover:text-[#6d28d2] h-[60px] overflow-hidden">
                   {item.offeredTitle}
                 </h1>
                 <h1 className="bg-[#F8F8F9] text-sm text-gray-500 mt-4 py-1 text-center">

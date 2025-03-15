@@ -46,7 +46,7 @@ const Group = () => {
     
   return (
     <div>
-         <h1 className='text-2xl border-b-2 pt-5 pb-4 pl-10 font-medium mt-9'> Group</h1>
+         <h1 className='text-2xl border-b-2 pt-5 pb-4 pl-10 font-medium mt-9'> Groups</h1>
          <div className="flex justify-center mt-[8px] mb-28 px-24 pt-5 h-screen">
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

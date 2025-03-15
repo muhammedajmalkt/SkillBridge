@@ -6,6 +6,12 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "../../../api/axiosInstance";
 import VideoCall from "../VideoCall/VideoCall";
+import { ImAttachment } from "react-icons/im";
+import { IoVideocam } from "react-icons/io5";
+import { BsThreeDotsVertical } from "react-icons/bs";
+
+
+
 
 
 const Chat = () => {
@@ -89,27 +95,33 @@ const Chat = () => {
     <div className="h-screen w-full flex bg-gray-200">
       {/* Left Sidebar */}
       <div className="w-72 bg-white border-r border-gray-300 flex gap-5 p-6">
-      {onlineUser.includes(receiver?._id) && <p className="bg-green-600 h-[10px] w-[10px] mt-7 ml-8 rounded-full absolute "></p>}
+      {onlineUser.includes(receiver?._id) && <p className="bg-green-600 h-[10px] w-[10px] mt-9 ml-10 rounded-full absolute "></p>}
+      <div className="bg-gray-200 h-fit w-full p-2 flex gap-3 rounded">
+
         <img
           src={receiver?.image || "default-avatar.png"}
           alt="Receiver Avatar"
-          className={`w-10 h-10 rounded-full object-cover bg-gray-500 ${onlineUser.includes(receiver?._id) && "border-2 border-green-500 rounded-full"} `}
-        />
+          className={`w-10 h-10 rounded-full object-cover bg-gray-500 ${onlineUser.includes(receiver?._id) && "border-2 border-green-600 rounded-full"} `}
+          />
         <div>
-          <h2 className="text-xl font-semibold text-gray-800">{receiver?.name}</h2>
-          <h2 className="text-xs text-gray-800">{receiver?.bio}</h2>
+             <h2 className="text-xl font-semibold text-gray-800">{receiver?.name}</h2>
+             <h2 className="text-xs text-gray-800">{receiver?.bio}</h2>
         </div>
+          </div>
       </div>
 
-      {/* Chat Section */}
-      <div className="flex-1 flex flex-col items-center py-4">
-        <div className="flex flex-col h-[90%] w-[90%] max-w-4xl rounded-lg shadow-lg bg-white">
-          <div className="p-4 bg-[#6d28d2] text-white text-center font-semibold rounded-t-lg">
+      <div className="flex-1 flex flex-col items-center py-4 mt-2">
+        <div className="flex flex-col h-[91%] w-[95%] max-w-full rounded-lg shadow-lg bg-white">
+          <div className="p-4 bg-[#6d28d2] text-white text-center font-semibold rounded-t-lg flex justify-between items-center">
             Chat with {receiver?.name}
+            <div className=" flex gap-5 ">
+                         <IoVideocam className="scale-150 texti-[#6d28d2] "/>
+                         <BsThreeDotsVertical/>
+            </div>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-white">
+          <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-white ">
             {chats?.map((item, index) => {
               const isSender = item.senderId === user?._id;
               return (
@@ -142,6 +154,7 @@ const Chat = () => {
 
           {/* Input Section */}
           <div className="p-4 border-t flex items-center bg-white rounded-b-xl">
+            <ImAttachment className="w-10 text-gray-400 cursor-pointer"/>
             <input
               type="text"
               value={message}

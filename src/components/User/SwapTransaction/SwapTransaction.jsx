@@ -9,6 +9,9 @@ import ConfirmModal from './confirmModal';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { requstReceiver } from '../../../Redux/Feature/swapRequest';
+import { TfiWrite } from "react-icons/tfi";
+
+
 
 
 const SwapTransaction = () => {
@@ -55,7 +58,6 @@ const SwapTransaction = () => {
         toast.error(err.response?.data?.message || "An error occured", {
                 position: "top-right",
                 autoClose: 3000,
-                hideProgressBar: false,
               });
     }
    })
@@ -70,8 +72,6 @@ const SwapTransaction = () => {
        toast.error(err.response?.data?.message || "An error occured", {
          position: "top-right",
          autoClose: 3000,
-         hideProgressBar: false,
-
        });
      }
    })
@@ -147,7 +147,7 @@ const handleRequestedAssessment = (skillId,transactionId,requesterId)=>{
       {swaped?.length > 0 ? swaped?.map((swap) => (
       swap?.receiverSkill?.map((prd) => (
     <div className='flex  shadow hover:shadow-lg transition-shadow duration-300  p-3 rounded gap-8 mb-5' key={prd?.skillId?._id}>
-      <img src={prd?.skillId?.offeredImage} alt='image' className='h-28 w-48 object-cover bg-slate-500'/>
+      <img src={prd?.skillId?.offeredImage || "/sample.png"} alt='image' className='h-28 w-48 object-cover bg-slate-500'/>
       <div className='flex flex-col gap-2 w-[800px] cursor-pointer' onClick={() => handleSend(prd?.skillId?._id)}>
         <h1>{prd?.skillId?.offeredTitle}</h1>
         <h1 className='text-sm '>Experience - {prd?.skillId?.offeredExpireince}</h1>
@@ -167,7 +167,7 @@ const handleRequestedAssessment = (skillId,transactionId,requesterId)=>{
           <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' onClick={() =>isCompletedRequested(swap._id)}> Swap Completed!</button>
           </>
           :
-          <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' onClick={()=>handleRequestedAssessment(prd?.skillId?._id,swap._id,swap.requesterSkill[0].userId)} >Assess ⌷</button>}
+          <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3 flex items-center gap-2' onClick={()=>handleRequestedAssessment(prd?.skillId?._id,swap._id,swap.requesterSkill[0].userId)} >Assess <TfiWrite/></button>}
           {modal && <ConfirmModal complete={complete} setComplete={setComplete}  setModal={setModal}   />}
            </>
 
@@ -189,7 +189,7 @@ const handleRequestedAssessment = (skillId,transactionId,requesterId)=>{
           <div className=' mb-5 '>
             <div className='flex gap-2 items-center justify-center'>  
             <div key={item._id} className='flex    shadow-md p-3 rounded gap-8 w-[500px] h-[180px] mt-5 cursor-pointer border-green-600 border 'onClick={()=>handleDatails(item._id)} >
-              <img src={item.offeredImage} className='h-28 w-48 object-cover' alt='Skill' />
+              <img src={item.offeredImage || "/sample.png"} className='h-28 w-48 object-cover' alt='Skill' />
               <div className='flex flex-col gap-1 w-[400px]'>
                 <h1 className='line-clamp-4'>{item.offeredTitle}</h1>
                 <h1 className='text-sm mt-3'>Experience - {item.offeredExpireince}</h1>
@@ -203,7 +203,7 @@ const handleRequestedAssessment = (skillId,transactionId,requesterId)=>{
               {swap.receiverSkill?.flatMap((jk) => jk?.skillId)?.map((item) => (
               <div className=' w-[500px] h-[180px]  shadow-md p-3 rounded gap-8 mt-5 cursor-pointer border border-red-500' onClick={()=>handleDetailss(item._id)}>
               <div className='flex gap-8'>
-              <img src={item.offeredImage} className='h-28 w-48 object-cover bg-slate-400' alt='Skill' />
+              <img src={item.offeredImage || "/sample.png"} className='h-28 w-48 object-cover bg-slate-400' alt='Skill' />
               <div className='flex flex-col gap-1 w-[400px]'>
                 <h1 className='line-clamp-3'>{item.offeredTitle}</h1>
                 <h1 className='text-sm mt-3'>Experience - {item.offeredExpireince}</h1>
@@ -229,7 +229,7 @@ const handleRequestedAssessment = (skillId,transactionId,requesterId)=>{
                 <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' onClick={() =>isCompletedReceived(swap._id)}> Swap Completed!</button>
                 </>
                 :
-                <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3' onClick={()=>handleReceivedAssessment(item._id,swap._id,swap.receiverSkill[0]?.userId)}> Assess ⌷</button>}
+                <button className=' py-1 rounded px-5 bg-yellow-500 text-white ml-3 flex items-center gap-2' onClick={()=>handleReceivedAssessment(item._id,swap._id,swap.receiverSkill[0]?.userId)}> Assess <TfiWrite/></button>}
 
                 </>
 }
@@ -237,7 +237,7 @@ const handleRequestedAssessment = (skillId,transactionId,requesterId)=>{
             </div>
            
           ))
-        )) : <div className='flex justify-center'><h1>No item found</h1></div>}
+        )) : <div className='flex justify-center'><h1>No swap found</h1></div>}
     </div>}
     </div>
     

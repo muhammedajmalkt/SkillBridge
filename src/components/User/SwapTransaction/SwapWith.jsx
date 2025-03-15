@@ -12,9 +12,9 @@ const SwapWith = ({receiverSkill,setRequest}) => {
     const { isAuthenticated } = useSelector((state) => state.auth)
     const [requestBtn,setRequestBtn]=useState(null)
     const [requesterDtl,setRequesterDtl]=useState(null)
-    const {mutate:createTransaction}=useCreateTransaction()
+    const {mutate:createTransaction,isSuccess}=useCreateTransaction()
 
-    const {data,isloading,error,isLoading}=useQuery({
+    const {data,error,isLoading}=useQuery({
         queryKey:["getAll"],
         queryFn:async () =>{
             const {data} = await axiosInstance.get("/user/get/getSwapByUserId")

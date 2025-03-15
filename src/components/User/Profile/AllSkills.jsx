@@ -41,11 +41,6 @@ const AllSkills = () => {
       onSuccess: (data) => {
         toast.success(data?.message, {
           position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
         });
         queryClient.invalidateQueries(["getAll"]);
       },
@@ -53,11 +48,6 @@ const AllSkills = () => {
         console.log("API Error:", err?.response.data);
         toast.error(err.response?.data?.message || "An error occurred", {
           position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
         });
       },
     });
