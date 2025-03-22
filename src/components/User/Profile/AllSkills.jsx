@@ -18,7 +18,7 @@ const AllSkills = () => {
   const { data, isloading, error, isLoading } = useQuery({
     queryKey: ["getAll"],
     queryFn: async () => {
-      const { data } = await axiosInstance.get("/user/get/getSwapByUserId");
+      const { data } = await axiosInstance.get("/user/get/getskillforprofile");
       return data;
     },
     enabled: !!isAuthenticated,

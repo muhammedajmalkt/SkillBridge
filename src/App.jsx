@@ -15,6 +15,7 @@ import { Toaster } from 'react-hot-toast';
 import Chat from './components/User/Chat/Chat';
 import Assess from './components/User/Assessment/Assess';
 import Group from './components/User/Group/group';
+import GroupChat from './components/User/Chat/GroupChat';
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
         <Route path='/chat/:userId' element= {<Chat/>}/>
         <Route path='/assess/:skillId/:transactionId/:requesterId' element = {<Assess/>}/>
         <Route path='/group' element={<Group/>}/>
+        <Route path='/groupchat/:groupId' element={<GroupChat/>}/>
 
 
      </Routes>

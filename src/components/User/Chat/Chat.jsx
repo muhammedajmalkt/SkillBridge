@@ -22,6 +22,7 @@ const Chat = () => {
   const { userId: receiverId } = useParams();
   const scrollRef = useRef(null);
   const [onlineUser,setOnlineUser]=useState([])
+  const [startCall,setStartCall]=useState(false)
 
   useEffect(() => {
     if (!user?._id) return;
@@ -87,10 +88,12 @@ const Chat = () => {
     }
   }, [chats]);
 
-  console.log(onlineUser.includes(receiverId));
-  console.log(onlineUser);
+  // console.log(onlineUser.includes(receiverId));
+  // console.log(onlineUser);
   
-
+const handleVidecall = ()=>{
+  setStartCall(true)
+}
   return (
     <div className="h-screen w-full flex bg-gray-200">
       {/* Left Sidebar */}
@@ -115,7 +118,7 @@ const Chat = () => {
           <div className="p-4 bg-[#6d28d2] text-white text-center font-semibold rounded-t-lg flex justify-between items-center">
             Chat with {receiver?.name}
             <div className=" flex gap-5 ">
-                         <IoVideocam className="scale-150 texti-[#6d28d2] "/>
+                         <IoVideocam className="scale-150 texti-[#6d28d2] " onClick={handleVidecall}/>
                          <BsThreeDotsVertical/>
             </div>
           </div>
@@ -126,7 +129,7 @@ const Chat = () => {
               const isSender = item.senderId === user?._id;
               return (
                 <div key={index} className={`flex ${isSender ? "justify-end" : "justify-start"} w-full`}>
-                  <div className={isSender ? "flex flex-row-reverse gap-2" : "flex gap-2"}>
+                  <div className={isSender ? "flex flex-row-reverse gap-2 items-end" : "flex gap-2 items-end"}>
                     <img
                       src={isSender ? user?.image : receiver?.image}
                       className="w-10 h-10 rounded-full object-cover bg-gray-500"
@@ -134,7 +137,7 @@ const Chat = () => {
                     />
                     <div
                       className={`px-4 py-2 text-white max-w-xs md:max-w-md lg:max-w-lg shadow-md rounded-lg
-                      ${isSender ? "bg-[#6c28d293] rounded-tl-lg rounded-br-lg rounded-bl-lg" : "bg-gray-400 rounded-tr-lg rounded-br-lg rounded-bl-lg"}`}
+                      ${isSender ? "bg-[#6c28d293] rounded-br-none" : "bg-gray-400  rounded-bl-none"}`}
                     >
                       <p className="text-sm">{item.chat}</p>
                       <p className="text-[10px] text-gray-200 mt-1 text-right">
@@ -154,7 +157,8 @@ const Chat = () => {
 
           {/* Input Section */}
           <div className="p-4 border-t flex items-center bg-white rounded-b-xl">
-            <ImAttachment className="w-10 text-gray-400 cursor-pointer"/>
+            <ImAttachment className="text-xl w-10 text-gray-500 cursor-pointer" />
+            
             <input
               type="text"
               value={message}
@@ -172,7 +176,7 @@ const Chat = () => {
           </div>
         </div>
       </div>
-      {/* <VideoCall receiverId={receiverId}/> */}
+     { startCall && <VideoCall receiverId={receiverId}/>}
 
     </div>
   );
