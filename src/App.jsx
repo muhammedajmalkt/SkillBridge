@@ -16,6 +16,7 @@ import Chat from './components/User/Chat/Chat';
 import Assess from './components/User/Assessment/Assess';
 import Group from './components/User/Group/group';
 import GroupChat from './components/User/Chat/GroupChat';
+import VideoCall from './components/User/VideoCall/VideoCall';
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
         <Route path='/assess/:skillId/:transactionId/:requesterId' element = {<Assess/>}/>
         <Route path='/group' element={<Group/>}/>
         <Route path='/groupchat/:groupId' element={<GroupChat/>}/>
+        <Route path='/videocall/:receiver/:receiverId' element={<VideoCall/>} />
 
 
      </Routes>

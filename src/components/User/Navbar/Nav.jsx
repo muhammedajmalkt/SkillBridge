@@ -96,7 +96,7 @@ const handleMouseLeave = () => setDpClick(false)
             <Link to="/" className="text-gray-600 hover:text-[#6d28d2] ">Home</Link>
             <Link to="/swapskill" className="text-gray-600  hover:text-[#6d28d2] ">Discover</Link>
             <Link  to="/swap" className="text-gray-600  hover:text-[#6d28d2] ">Swap</Link>
-            <Link to="/group" className="text-gray-600   hover:text-[#6d28d2] ">Peer Group</Link>
+            <Link to="/group" className="text-gray-600   hover:text-[#6d28d2] ">Groups</Link>
             <Link to="/favorite" className="text-gray-600    hover:text-[#6d28d2] ">Favorites</Link>
             <Link to="/notification" className="text-gray-600   hover:text-[#6d28d2] ">Notifications</Link>
           </div>

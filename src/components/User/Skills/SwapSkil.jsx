@@ -31,7 +31,7 @@ const SwapSkill = () => {
     const { data: skills, isLoading,  } = useQuery({
       queryKey: ["skills", searchValue, category, page],
       queryFn: async () => {
-          const params = { offeredTitle: searchValue, offeredCategory: category, limit: 10, page };
+          const params = { offeredTitle: searchValue, offeredCategory: category, limit: 8, page };
           const { data } = await axiosInstance.get(`/user/getswap`, { params });
           setTotalPages(data.pagination.totalPages || 1);
           return data;
@@ -74,7 +74,7 @@ const SwapSkill = () => {
                     ) : skills?.data.length > 0 ? (
                         skills.data.map((item, index) => (
                             <div key={index} onClick={() => productClick(item._id)} className='group flex flex-col h-[380px] w-[280px] shadow-xl rounded-md overflow-hidden bg-white transition-transform duration-300 hover:scale-105 cursor-pointer'>
-                                <img className='h-[160px] object-cover w-full transition-transform duration-300 ease-in-out group-hover:scale-110' src={item.offeredImage || 'sample.png'} alt='Skill Image' />
+                                <img loading='lazy' className='h-[160px] object-cover w-full transition-transform duration-300 ease-in-out group-hover:scale-110' src={item.offeredImage || 'sample.png'} alt='Skill Image' />
                                 <div className='p-4'>
                                     <h1 className='text-md hover:text-[#6d28d2] h-[60px] overflow-hidden'>{item.offeredTitle}</h1>
                                     <h1 className='bg-[#F8F8F9] text-sm text-gray-500 mt-4 py-1 text-center'>{item.offeredCategory?.toUpperCase()}</h1>

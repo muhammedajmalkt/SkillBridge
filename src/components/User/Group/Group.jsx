@@ -53,7 +53,7 @@ const groupChat =(groupId)=>{
   return (
     <div>
          <h1 className='text-2xl border-b-2 pt-5 pb-4 pl-10 font-medium mt-9'> Groups</h1>
-               {joined && 
+               {isAuthenticated && joined && 
                 <div className='px-48 pt-5 border-b '>
                <h1 className='text-gray-400'>You are in following groups!</h1>
                <div className=" mt-[8px] mb-5 ">
@@ -74,7 +74,7 @@ const groupChat =(groupId)=>{
                             {/* <h1 className="bg-[#F8F8F9] text-sm text-gray-500 mt-4 py-1 text-center">{item.category?.toUpperCase()}</h1> */}
                         </div>
                            <button className="border border-[#6d28d2] w-fit  h-fit text-white bg-[#6d28d2]  hover:bg-[#6c28d2dd] mt-8 text-xs px-10 py-2 rounded-3xl"
-                           onClick={()=>groupChat(item._id)}> GO TO CHAT
+                           onClick={()=>groupCxhat(item._id)}> GO TO CHAT
                            </button>
                     </div>
                     </div>

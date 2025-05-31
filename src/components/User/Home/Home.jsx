@@ -7,6 +7,8 @@ import axiosInstance from '../../../api/axiosInstance';
 import { skillSwapSuccess } from '../../../Redux/Feature/skillSwap';
 import {motion} from 'framer-motion'
 import Loader from '../Layout/Loader'
+import Workflow from './WorkFlow';
+
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -34,11 +36,11 @@ const Home = () => {
    
   return (
     <div >      
- <div className="bg-[#EFF9FE] w-full py-14 px-6 md:px-16 lg:px-32 xl:px-64 flex flex-col lg:flex-row items-center justify-center gap-10">
+ <div className="bgs-[#EFF9FE] bg-[#f0f0f0] w-full py-14 px-6 md:px-16 lg:px-32 xl:px-64 flex flex-col lg:flex-row items-center justify-center gap-10">
   
   {/* Text Section */}
   <div className="max-w-lg text-center lg:text-left">
-    <h1 className="text-3xl md:text-4xl font-anekmalayalam font-semibold">
+    <h1 className="text-3xl md:text-4xl font-anekmalayalam font-semibold text-[#333]">
       Swap Skills, Grow Together
     </h1>
     <p className="text-md text-[#6a6969] mt-6">
@@ -85,7 +87,7 @@ const Home = () => {
                   {item.offeredCategory?.toUpperCase()}
                 </h1>
                 <motion.button
-                  className="border border-[#6d28d2] w-full text-[#6d28d2] hover:text-white hover:bg-[#6d28d2] hover:duration-300 
+                  className="border border-[#6d28d2]  w-full text-[#6d28d2] hover:text-white hover:bg-[#6d28d2] hover:duration-300 
                   hover:ease-in mt-8 text-xs px-10 py-2 rounded-l-3xl rounded-r-3xl"
                 >
                   VIEW DETAILS
@@ -106,9 +108,10 @@ const Home = () => {
           and publishing your skills.
         </p>
       </div>
-      
+      <Workflow />
+
       {/* Project List */}
-      <div className="relative flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-between px-8 lg:px-20 py-16 w-[70%] mx-auto  mb-20 ">
+      <div className="relative flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-between px-8 lg:px-20 py-16 w-[70%] mx-auto  m-20 ">
       <div className="absolute left-0 lg:left-16 top-10 w-96 h-96 bg-blue-200 rounded-full opacity-50 "></div>
       <div className="relative bg-[#0F1C39] text-white p-6 rounded-xl w-[300px] shadow-lg z-10 left-6 top-3">
         <h2 className="flex items-center justify-between text-lg font-semibold mb-4">
@@ -129,10 +132,10 @@ const Home = () => {
           <li className="text-gray-400">Cybersecurity</li>
         </ul>
 
-        <img className="absolute -left-16 top-4 w-14 h-14 rounded-full  object-cover" src="land3.jpg" alt="Profile" />
-        <img className="absolute -left-16 bottom-8 w-14 h-14 rounded-full object-cover" src="land2.jpg" alt="Profile" />
-        <img className="absolute -right-16 top-4 w-14 h-14 rounded-full object-cover" src="land4.jpg" alt="Profile" />
-        <img className="absolute -right-14 bottom-8 w-14 h-14 rounded-full object-cover" src="land1.jpg" alt="Profile" />
+        <img  className="absolute -left-16 top-4 w-14 h-14 rounded-full  object-cover" src="land3.jpg" alt="Profile" />
+        <img   className="absolute -left-16 bottom-8 w-14 h-14 rounded-full object-cover" src="land2.jpg" alt="Profile" />
+        <img  className="absolute -right-16 top-4 w-14 h-14 rounded-full object-cover" src="land4.jpg" alt="Profile" />
+        <img  className="absolute -right-14 bottom-8 w-14 h-14 rounded-full object-cover" src="land1.jpg" alt="Profile" />
       </div>
 
       <div className="max-w-lg text-center lg:text-left mt-12 lg:mt-0 ">
@@ -146,7 +149,6 @@ const Home = () => {
         </p>
       </div>
     </div>
-
     </div>
   );
 }
