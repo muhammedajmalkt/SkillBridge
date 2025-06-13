@@ -36,6 +36,9 @@ SkillBridge is designed to empower a global community of learners and profession
 
 5. **Skill Swap Session**
    - Teach and learn through real-time communication.
+   
+6.  **Assessment (Optional)**
+     -  After a session, users can complete a **questionnaire-based assessment** to validate what they've learned.
 
 ---
 
@@ -73,5 +76,4 @@ SkillBridge is designed to empower a global community of learners and profession
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/your-username/skillbridge.git
-   cd skillbridge
+   git clone https://github.com/muhammedajmalkt/SkillBridge.git)
